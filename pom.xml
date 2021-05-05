@@ -81,8 +81,8 @@
        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
-        <dependency>
+        </dependency>-->
+       <!-- <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
@@ -105,11 +105,17 @@
 
 
         <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>-->
+
+
+        <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>-->
 
-        <!--<dependency>
+       <!-- <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>-->
@@ -162,7 +168,7 @@
 
 
 
-        <dependency>
+        <!--<dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
@@ -171,7 +177,7 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

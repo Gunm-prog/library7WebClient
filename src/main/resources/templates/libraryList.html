@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<meta charset="UTF-8">
+<head>
+
+</head>
+<body>
+<div th:if="${#lists.size(libraryList) == 0}">
+    <p>No result</p>
+</div>
+<div th:if="${#lists.size(libraryList) != 0}">
+    <div th:each="library:${libraryList}">
+        <p th:text="${library.name}">
+            Library name
+        </p>
+    </div>
+</div>
+</body>
+
+
+</html>

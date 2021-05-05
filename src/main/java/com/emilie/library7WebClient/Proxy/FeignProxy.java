@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 /*@FeignClient(name = "server-gateway", url = "localhost:9002")*/
-@FeignClient(name = "lib7", url = "localhost:9002")
+@FeignClient(name = "bookFeignClient", url = "localhost:9002")
 public interface FeignProxy {
 
     /* === No Authentication needed === */
 
-    @GetMapping("/lib7/api/v1/books/{id}")
-    List<Book> getById();
+    @GetMapping("/books/{id}")
+    Book getById();
 
-    @GetMapping("/lib7/api/v1/books/catalog")
+    @GetMapping("/books/catalog")
     List<Book> getBookList();
 
-    @GetMapping("/lib7/api/v1/books/newBook")
+    @GetMapping("/books/newBook")
     List<Book> save();
 
-    @GetMapping("/lib7/api/v1/libraries/libraryList")
+    @GetMapping("/libraries")
     List<Library> getLibraryList();
 
 

@@ -1,13 +1,14 @@
 package com.emilie.library7WebClient.Controllers;
 
-import com.emilie.library7WebClient.Proxy.FeignProxy;
+
+import com.emilie.library7WebClient.Services.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/book")
 public class BookController {
 
@@ -19,20 +20,34 @@ public class BookController {
     private static final String CATALOG_VIEW = "catalog";
     private static final String BOOK_DETAILS_VIEW = "bookDetails";
 
-    private final FeignProxy feignProxy;
+
+    private final BookServiceImpl bookService;
 
 
     @Autowired
-    public  BookController(FeignProxy feignProxy){ this.feignProxy = feignProxy;}
+    public  BookController(BookServiceImpl bookService){
+        this.bookService=bookService;
+    }
 
-    @GetMapping("/index")
-    public String retrieveAllBooks(Model model){
-
-        model.addAttribute(BOOK_LIST, feignProxy.getBookList() );
-        model.addAttribute( LIBRARY, feignProxy.getLibraryList() );
+    @GetMapping("/")
+    public String retrieveAllBooks(Model model) {
+        model.addAttribute(BOOK_LIST, bookService.getBookList() );
+        /*model.addAttribute( LIBRARY, feignProxy.getLibraryList() );*/
 
         /*return CATALOG_VIEW;*/
         return "index";
+    }
+
+  /* @GetMapping("/bookDetails")
+    public String getById();*/
+
+
+    @GetMapping("/libraries")
+    public String retrieveAllLibraries(Model model){
+
+        model.addAttribute( LIBRARY, bookService.getLibraryList() );
+
+        return "libraryList";
     }
 
 
