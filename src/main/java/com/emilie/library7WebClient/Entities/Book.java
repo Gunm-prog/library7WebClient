@@ -9,10 +9,22 @@ import java.util.Set;
 @NoArgsConstructor
 public class Book {
 
-    private Long bookId;
+    private Long id;
     private String title;
     private String isbn;
     private String summary;
     private Author author;
     private Set<Copy> copies;
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", summary='" + summary + '\'' +
+                ", author=" + author +
+                ", copies=" + copies +
+                '}';
+    }
 }

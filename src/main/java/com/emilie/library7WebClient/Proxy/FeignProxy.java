@@ -2,29 +2,46 @@ package com.emilie.library7WebClient.Proxy;
 
 import com.emilie.library7WebClient.Entities.Book;
 import com.emilie.library7WebClient.Entities.Library;
+import com.emilie.library7WebClient.Entities.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 import java.util.List;
 
 /*@FeignClient(name = "server-gateway", url = "localhost:9002")*/
-@FeignClient(name = "bookFeignClient", url = "localhost:9002")
+@FeignClient(name = "bookFeignClient", url = "localhost:8181")
 public interface FeignProxy {
 
     /* === No Authentication needed === */
 
-    @GetMapping("/books/{id}")
-    Book getById();
 
-    @GetMapping("/books/catalog")
+    /* ===Book ===*/
+    @GetMapping("/api/v1/books/{id}")
+    Book getById(@PathVariable Long id);
+
+    @GetMapping("/api/v1/books/catalog")
     List<Book> getBookList();
 
-    @GetMapping("/books/newBook")
-    List<Book> save();
+    @PostMapping("/api/v1/books/newBook")
+    Book save();
 
-    @GetMapping("/libraries")
+    /* ===Library ===*/
+    @GetMapping("/api/v1/libraries/libraryList")
     List<Library> getLibraryList();
 
+    @GetMapping("/api/v1/libraries/{id}")
+    Library getLibraryById(@PathVariable Long id);
+
+    /* ===User ===*/
+
+    @GetMapping("/api/v1/users/{id}")
+    User getUserById(@PathVariable Long id);
+
+
+
 
 
 
@@ -32,61 +49,3 @@ public interface FeignProxy {
 }
 
 
-
-
-   /* *//* ================================ *//*
-
-    *//* ================================ *//*
-
-    @GetMapping("/ms-book/consult/book-catalog")
-    List<BookBean> listAllBook();
-
-    @GetMapping("/ms-book/consult/book-last")
-    List<BookBean> getLastRegisteredBook();
-
-    @GetMapping("/ms-book/consult/search-result")
-    List<BookBean> listSearchResult(@SpringQueryMap BookSearchAttribut searchAttribut);
-
-    @GetMapping("/ms-book/consult/{library}/book-catalog")
-    List<BookBean> listAllBookOfLibrary(@PathVariable("library") String library);
-
-    @GetMapping("/ms-book/consult/{library}/book-last")
-    List<BookBean> getLastRegisteredBookOfLibrary(@PathVariable("library") String library);
-
-    @GetMapping("/ms-book/consult/libraries")
-    List<LibraryWithoutBookBean> listAllLibrary();
-
-    @GetMapping("/ms-book/consult/{libraryId}/book/{bookId}")
-    BookBean getBookDetail(@PathVariable("bookId") int bookId,
-                           @PathVariable("libraryId") int libraryId);
-
-    @PostMapping("/ms-authentication/login")
-    String doLogin(@RequestBody UserBean userBean);
-
-    *//* =============================== *//*
-    *//* ==== Authentication needed ==== *//*
-    *//* =============================== *//*
-
-    @GetMapping("/ms-account/consult/user-info")
-    AccountBean getAccountInfo(@RequestHeader(CommonSecurityConfig.HEADER) String accessToken);
-
-    @GetMapping("/ms-loan/consult/loans/{userId}/{loanProperty}")
-    List<LoanBean> getUserLoanList(@RequestHeader(CommonSecurityConfig.HEADER) String accessToken,
-                                   @PathVariable("userId") int userId,
-                                   @PathVariable("loanProperty") String loanProperty);
-
-    @GetMapping("/ms-loan/edit/extend/loan/{loanId}")
-    LoanBean extendLoanExpectedReturnDate(
-            @RequestHeader(CommonSecurityConfig.HEADER) String accessToken,
-            @PathVariable("loanId") int loanId);
-
-    @PostMapping("/ms-consistency-manager/edit/account")
-    AccountBean editAccount(@RequestHeader(CommonSecurityConfig.HEADER) String accessToken,
-                            @RequestBody AccountBean accountBean);
-
-    @PostMapping("/ms-authentication/refresh")
-    String doUpdateToken(@RequestHeader(CommonSecurityConfig.HEADER) String accessToken,
-                         @RequestBody UserBean userUpdated);
-}
-
-*/

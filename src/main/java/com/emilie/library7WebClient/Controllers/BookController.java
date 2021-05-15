@@ -1,14 +1,17 @@
 package com.emilie.library7WebClient.Controllers;
 
 
+import com.emilie.library7WebClient.Entities.Book;
+import com.emilie.library7WebClient.Proxy.FeignProxy;
 import com.emilie.library7WebClient.Services.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+import org.springframework.stereotype.Controller;
+
+//@RestController
+@Controller
 @RequestMapping("/book")
 public class BookController {
 
@@ -16,7 +19,8 @@ public class BookController {
     private static final String BOOK = "book";
     private static final String LIBRARY = "libraries";
     private static final String BOOK_SEARCH = "bookSearch";
-
+    private static final String LIBRARY_LIST = "libraryList";
+    private static final String LIBRARY_DETAILS_VIEW = "libraryDetails";
     private static final String CATALOG_VIEW = "catalog";
     private static final String BOOK_DETAILS_VIEW = "bookDetails";
 
@@ -24,33 +28,44 @@ public class BookController {
     private final BookServiceImpl bookService;
 
 
+
     @Autowired
     public  BookController(BookServiceImpl bookService){
         this.bookService=bookService;
+
     }
 
-    @GetMapping("/")
+    @GetMapping("/bookList")
     public String retrieveAllBooks(Model model) {
         model.addAttribute(BOOK_LIST, bookService.getBookList() );
         /*model.addAttribute( LIBRARY, feignProxy.getLibraryList() );*/
 
         /*return CATALOG_VIEW;*/
-        return "index";
+        return "bookList";
     }
 
-  /* @GetMapping("/bookDetails")
-    public String getById();*/
+   @GetMapping("/bookDetails/{id}")
+    public String getById(@PathVariable("id") Long id, Model model){
+        Book book = bookService.getById( id);
+        model.addAttribute("book", book);
+
+       return BOOK_DETAILS_VIEW;
+   }
 
 
-    @GetMapping("/libraries")
-    public String retrieveAllLibraries(Model model){
+    @GetMapping("/libraryList")
+    public String getAllLibraries(Model model){
 
-        model.addAttribute( LIBRARY, bookService.getLibraryList() );
+        model.addAttribute( LIBRARY_LIST, bookService.getLibraryList() );
 
-        return "libraryList";
+        return LIBRARY_LIST;
     }
 
-
+    @GetMapping("/libraryDetails/{id}")
+    public String getLibraryById (@PathVariable("id") Long id, Model model){
+        model.addAttribute( LIBRARY_DETAILS_VIEW, bookService.getLibraryById( id ) );
+        return LIBRARY_DETAILS_VIEW;
+    }
 
 
 }

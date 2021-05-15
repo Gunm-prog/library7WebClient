@@ -10,9 +10,10 @@ import java.util.Set;
 @NoArgsConstructor
 public class Library {
 
-    private Long libraryId;
+    private Long id;
     private String name;
     private String phoneNumber;
     private String address;
     private Set<Copy> copies;
+
 }

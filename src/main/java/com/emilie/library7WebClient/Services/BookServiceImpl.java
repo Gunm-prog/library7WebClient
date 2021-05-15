@@ -21,7 +21,7 @@ public class BookServiceImpl implements BookService {
     }
 
     public Book getById (Long id){
-        return this.feignProxy.getById();
+        return this.feignProxy.getById(id);
     }
 
     public List<Book> getBookList(){
@@ -29,6 +29,10 @@ public class BookServiceImpl implements BookService {
     }
 
     public List<Library> getLibraryList(){return feignProxy.getLibraryList();}
+
+    public Library getLibraryById(Long id){
+        return this.feignProxy.getLibraryById(id);
+    }
 
 
 }
