@@ -4,6 +4,7 @@ import com.emilie.library7WebClient.Entities.Book;
 import com.emilie.library7WebClient.Entities.Library;
 import com.emilie.library7WebClient.Entities.User;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,10 +41,7 @@ public interface FeignProxy {
     @GetMapping("/api/v1/users/{id}")
     User getUserById(@PathVariable Long id);
 
-
-
-
-
+    @PostMapping("/api/v1/users/login")
 
 
 }
