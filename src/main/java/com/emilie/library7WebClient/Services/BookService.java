@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BookService {
 
-    Book getById(Long id);
+    Book getBookById(Long id);
 
     List<Book> getBookList();
 

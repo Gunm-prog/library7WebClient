@@ -4,7 +4,9 @@ import com.emilie.library7WebClient.Entities.User;
 
 public interface UserService {
 
-    User getUserById(Long id);
+    com.emilie.library7WebClient.model.Entities.user.User getUserById(Long id);
 
     User getSignupForm();
+
+
 }

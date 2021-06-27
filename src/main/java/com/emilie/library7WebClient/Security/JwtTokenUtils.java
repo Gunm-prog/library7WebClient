@@ -1,7 +1,7 @@
 package com.emilie.library7WebClient.Security;
 
 import org.springframework.web.util.WebUtils;
-
+import com.auth0.jwt.JWT;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +21,7 @@ public class JwtTokenUtils {
          */
         public static Cookie generateCookie (String token){
 
-            Cookie cookie = new Cookie(HEADER, token);
+            Cookie cookie = new Cookie(JwtProperties.HEADER, token);
             cookie.setSecure(false);
             cookie.setHttpOnly(true);
             cookie.setMaxAge(999999); // 12 days
@@ -37,7 +37,7 @@ public class JwtTokenUtils {
          * @param httpServletResponse the HttpServletResponse with cookie to delete
          */
         public static void clear(HttpServletResponse httpServletResponse) {
-            Cookie cookie = new Cookie(HEADER, null);
+            Cookie cookie = new Cookie(JwtProperties.HEADER, null);
             cookie.setPath("/");
             cookie.setHttpOnly(true);
             cookie.setMaxAge(0);

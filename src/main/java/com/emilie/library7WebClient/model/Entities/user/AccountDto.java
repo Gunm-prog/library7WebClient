@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
-public class Account {
+public class AccountDto {
 
     @NotNull
     @NotBlank

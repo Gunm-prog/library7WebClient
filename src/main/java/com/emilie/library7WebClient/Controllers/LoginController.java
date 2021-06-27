@@ -6,7 +6,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import com.emilie.library7WebClient.Security.JwtTokenUtils;
+import com.emilie.library7WebClient.model.Entities.user.AccountDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +31,7 @@ public class LoginController {
 
     private static final String LOGIN_VIEW = "login";
     private static final String REDIRECT_LOGIN_VIEW = "redirect:/login";
-    private static final String REDIRECT_USER_HOME_VIEW = "redirect:/utilisateur/home/selection";
+    private static final String REDIRECT_USER_HOME_VIEW = "redirect:/userAccount";
 
     private FeignProxy proxy;
 
@@ -38,10 +40,10 @@ public class LoginController {
         this.proxy = proxy;
     }
 
-    @GetMapping("/login")
+    @GetMapping(path="/login")
     public String loginForm(Model model) {
 
-        model.addAttribute(LIBRARY_ATT, proxy.getLibraryList());
+        /*model.addAttribute(LIBRARY_ATT, proxy*//**//*.getLibraryList());*/
         model.addAttribute(USER_ATT, new User());
 
         return LOGIN_VIEW;
@@ -49,10 +51,55 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute(USER_ATT) User user, Model model,
+    public String loginUser(@ModelAttribute(USER_ATT) AccountDto accountDto, Model model,
                             HttpServletResponse response, BindingResult bindingResult) {
 
-        model.addAttribute(LIBRARY_ATT, proxy.getLibraryList());
+        //todo why library?
+        /* model.addAttribute(LIBRARY_ATT, proxy.getLibraryList());*/
+
+       /* System.out.println(accountDto);
+        // Authenticate user and receive token
+        String responseEntity;
+        *//*ResponseEntity<?> responseEntity;*//*
+        try {
+            //try authentication
+            responseEntity = proxy.login(accountDto);
+        } catch (Exception e){
+            //bad authentication
+            bindingResult.addError(new FieldError(USER_ATT, USERNAME_FIELD, BAD_CREDENTIALS_MSG));
+            model.addAttribute(USER_ATT, accountDto);
+            return LOGIN_VIEW;
+        }*/
+        //good authentication
+
+         String jwtToken = proxy.login(accountDto);
+        System.out.println(jwtToken);
+         if (jwtToken == null) {
+
+             bindingResult.addError( new FieldError( USER_ATT, USERNAME_FIELD, BAD_CREDENTIALS_MSG ) );
+             model.addAttribute( USER_ATT, accountDto );
+
+             return LOGIN_VIEW;
+         }else {
+
+             //Add token to response in a cookie
+             Cookie cookie = JwtTokenUtils.generateCookie( jwtToken );
+             response.addCookie( cookie );
+
+             return REDIRECT_USER_HOME_VIEW;
+         }
+
+
+
+      /*  //extract token from responseEntity
+        String jwtToken = responseEntity*//*.getHeaders().getFirst("Authorization").replace("Bearer ", "")*//*;
+        System.out.println(jwtToken);
+        // Add token to response in a cookie
+        Cookie cookie = JwtTokenUtils.generateCookie(jwtToken);
+        response.addCookie(cookie);*/
+
+        /*return REDIRECT_USER_HOME_VIEW;*/
+       /* model.addAttribute(LIBRARY_ATT, proxy.getLibraryList());
 
         // Authenticate user and receive token
         String jwtToken = proxy.login(user);
@@ -69,7 +116,7 @@ public class LoginController {
             response.addCookie(cookie);
 
             return REDIRECT_USER_HOME_VIEW;
-        }
+        }*/
 
     }
 
@@ -82,3 +129,5 @@ public class LoginController {
     }
 
 }
+
+

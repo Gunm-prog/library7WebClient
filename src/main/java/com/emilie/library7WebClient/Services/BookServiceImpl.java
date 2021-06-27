@@ -20,8 +20,8 @@ public class BookServiceImpl implements BookService {
         this.feignProxy=feignProxy;
     }
 
-    public Book getById (Long id){
-        return this.feignProxy.getById(id);
+    public Book getBookById (Long id){
+        return this.feignProxy.getBookById(id);
     }
 
     public List<Book> getBookList(){
