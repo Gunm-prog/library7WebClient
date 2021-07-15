@@ -9,6 +9,6 @@ public class Copy {
 
     private Long id;
     private boolean available;
-    private Book book;
-    private Library library;
+    private Book bookDto;
+    private Library libraryDto;
 }

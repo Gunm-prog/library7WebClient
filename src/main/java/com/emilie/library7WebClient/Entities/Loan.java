@@ -13,6 +13,6 @@ public class Loan {
     private Date loanStartDate;
     private Date loanEndDate;
     private boolean extended;
-    private Copy copy;
+    private Copy copyDto;
     private User user;
 }

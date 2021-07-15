@@ -1,11 +1,11 @@
 package com.emilie.library7WebClient.Proxy;
 
+
 import com.emilie.library7WebClient.Entities.Book;
 import com.emilie.library7WebClient.Entities.Library;
-import com.emilie.library7WebClient.model.Entities.user.User;
+import com.emilie.library7WebClient.Entities.User;
+import com.emilie.library7WebClient.Entities.UserAccountLogin;
 import com.emilie.library7WebClient.Security.JwtProperties;
-import com.emilie.library7WebClient.model.Entities.loan.Loan;
-import com.emilie.library7WebClient.model.Entities.user.AccountDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,15 +39,25 @@ public interface FeignProxy {
 
     /* ===User ===*/
 
+
+    @PostMapping("/register/customer")
+    ResponseEntity<?> newCustomerAccount(@RequestBody User newUser);
+
+    @PostMapping("/register/employee")
+    ResponseEntity<?> newEmployeeAccount(@RequestBody User newUser);
+
     @GetMapping("/api/v1/users/{id}")
     User getUserById(@PathVariable Long id);
 
     @PostMapping("/authenticate")
-    String login(@RequestBody AccountDto accountDto);
+    String login(@RequestBody UserAccountLogin accountDto);
 
-    @GetMapping("api/v1/users/userAccount")
+    @GetMapping("/api/v1/users/userAccount")
     User getLoggedUser(@RequestHeader(JwtProperties.HEADER) String accessToken);
 
+    @PutMapping("/api/v1/loans/extendLoan/{id}")
+    ResponseEntity<?> extendLoan(@PathVariable(value="id") Long id,
+                                 @RequestHeader(JwtProperties.HEADER) String accessToken);
 
     /* ===Loan ===*/
    /* @GetMapping("api/v1/loans/loanList/{userId}/{userLoans}")

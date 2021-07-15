@@ -13,7 +13,7 @@ public class Book {
     private String title;
     private String isbn;
     private String summary;
-    private Author author;
+    private Author authorDto;
     private Set<Copy> copies;
 
     @Override
@@ -23,7 +23,7 @@ public class Book {
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
                 ", summary='" + summary + '\'' +
-                ", author=" + author +
+                ", author=" + authorDto +
                 ", copies=" + copies +
                 '}';
     }

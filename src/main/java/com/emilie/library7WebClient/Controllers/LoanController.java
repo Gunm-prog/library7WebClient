@@ -1,36 +1,42 @@
-/*
 package com.emilie.library7WebClient.Controllers;
 
+import com.emilie.library7WebClient.Entities.Loan;
+import com.emilie.library7WebClient.Proxy.FeignProxy;
+import com.emilie.library7WebClient.Security.JwtProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
+@Controller
 public class LoanController {
 
-    private LoanService loanService;
+    private static final String HOME_VIEW = "home";
+    private static final String LOGIN_VIEW = "login";
+    private static final String LOAN_LIST_ATT = "loans";
+    private static final String REDIRECT_LOGIN_VIEW = "redirect:/login";
+    private static final String REDIRECT_USER_ACCOUNT_VIEW = "redirect:/userAccount";
+    private static final String USER_ATT = "user";
 
-    public LoanController(LoanService loanService) {
-        this.loanService=loanService;
-    }
+    private final FeignProxy feignProxy;
 
     @Autowired
-    public void LoanController(LoanService loanService){
-        this.loanService = loanService;
+    public LoanController(FeignProxy feignProxy) {
+        this.feignProxy = feignProxy;
+    }
 
-        @GetMapping("/listAllLoans")
-        public List<Loans> listAllLoans(){
-            return loanService.getLoanList();
-        }
-
-        @GetMapping("/loans/{userId}/{userLoans}")
-        public List<Loans> LoansList(@PathVariable Long id, @PathVariable String loans){
-            return loanService.getLoanList(userId, loans);
-
-        }
-
-
+    @PostMapping("/extendLoan/{id}")
+    public String extendLoan(@PathVariable(value="id") Long id,
+                             @CookieValue(value=JwtProperties.HEADER, required=false) String accessToken) {
+        if (accessToken == null)
+            return REDIRECT_LOGIN_VIEW;
+        ResponseEntity<?> response=feignProxy.extendLoan( id, accessToken );
+        return REDIRECT_USER_ACCOUNT_VIEW;
     }
 }
-*/
+

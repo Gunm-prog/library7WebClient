@@ -7,16 +7,41 @@
 <body>
 
 <p>hello</p>
-<!--<p th:text="${userInfos.id}"> id book </p>
-<p th:text="${userInfos.username}"> user name </p>
+<!--<p th:text="${userInfos.userId}"> userID </p>-->
+<!--<p th:text="${userInfos.username}"> user name </p>-->
 <p th:text="${userInfos.email}"> user email </p>
 <p th:text="${userInfos.password}"> user password </p>
 <p th:text="${userInfos.lastName}"> user last name </p>
-<p th:text="${userInfos.firstName}"> user first name</p>-->
+<p th:text="${userInfos.firstName}"> user first name</p>
 
+<table>
+    <tr>
+        <th>Ouvrages</th>
+        <th>Loan start date</th>
+        <th>Loan end date</th>
+        <th>Library</th>
+    </tr>
 
+    <tr th:each="loan: ${userInfos.loanDtos}">
+        <td>
+            <p th:text="${loan.copyDto.bookDto.title}">Loaned book title</p>
+            <p th:text="${loan.copyDto.bookDto.isbn}">Isbn</p>
+            <p th:text="${loan.copyDto.bookDto.authorDto.firstName + ' ' +
+            loan.copyDto.bookDto.authorDto.lastName}"></p>
+        </td>
+        <td th:text="${loan.loanStartDate}"> Loan start date</td>
+        <td>
+            <p th:text="${loan.loanEndDate}">Loan end date</p>
+
+            <form action="#" th:action="@{'/extendLoan/{id}' (id=${loan.id})}" method="post"
+                  th:if="${loan.extended == false}">
+                <input type="submit" value="Extend loan"/>
+            </form>
+        </td>
+
+        <td th:text="${loan.copyDto.libraryDto.name}"> Library</td>
+    </tr>
+</table>
 </body>
-
-
 </html>
 
