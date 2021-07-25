@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/base :: base(~{::title},~{::h2},~{::section})">
+<div th:replace="fragments/base :: head"></div>
+
+<title>Search</title>
+
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h2>Book Search</h2>
+<section>
+    <form action="#" th:action="@{/book/searchResult}" th:object="${copy}" method="post">
+
+        <h3>Book Title - Isbn</h3>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input id="title" type="text" class="form-control" th:field="*{bookDto.title}" name="bookTitle"
+                   placeholder="Title">
+            <label for="isbn">Isbn</label>
+            <input id="Isbn" type="text" class="form-control" th:field="*{bookDto.isbn}" name="isbn" placeholder="Isbn">
+        </div>
+
+        <h3>Book's Author</h3>
+        <div class="form-group">
+            <label for="authorLastname">Author Lastname</label>
+            <input id="authorLastname" type="text" class="form-control" th:field="*{bookDto.authorDto.lastName}"
+                   name="AuthorLastname" placeholder="Author Lastname">
+            <label for="authorFirstname">Author Firstname</label>
+            <input id="authorFirstname" type="text" class="form-control" th:field="*{bookDto.authorDto.firstName}"
+                   name="AuthorFirstName" placeholder="Author Firstname">
+        </div>
+
+
+        <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">Book Search</button>
+        </div>
+
+    </form>
+</section>
+</body>
+</html>

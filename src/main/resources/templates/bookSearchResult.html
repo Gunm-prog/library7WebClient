@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/base :: base(~{::title},~{::h2},~{::section})">
+<div th:replace="fragments/base :: head"></div>
+
+
+<title>Search Results</title>
+
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h2>Book Search Results</h2>
+
+<section>
+    <table>
+        <tr>
+            <th>Isbn</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Availability</th>
+            <th>Library</th>
+        </tr>
+        ${#lists.size(spot.comments) != 0}"
+        <tr th:if="${#lists.size(copies) == 0}">
+            <td colspan="5">No result</td>
+        </tr>
+        <tr th:if="${#lists.size(copies) != 0}" th:each="copy: ${copies}"> pour chaque copy de la list de copies, on
+            affichera les diverses infos ci-dessous
+            <td>
+                <p th:text="${copy.bookDto.title}">Title</p>
+            </td>
+            <td>
+                <p th:text="${copy.bookDto.isbn}">Isbn</p>
+            </td>
+            <td>
+                <p th:text="${copy.authorDto.lastName}">Author Lastname</p>
+                <p th:text="${copy.authorDto.firstName}">Author firstname</p>
+            </td>
+            <td>
+                <p th:if="${copy.available == true}">Available</p>
+                <p th:if="${copy.available == false}"> Not available</p>
+            </td>
+
+
+        </tr>
+    </table>
+</section>
+
+</body>
+</html>

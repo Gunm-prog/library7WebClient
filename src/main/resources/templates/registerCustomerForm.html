@@ -1,9 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<html xmlns:th="http://www.thymeleaf.org" lang="fr"
+th:replace="fragments/base :: base(~{::title},~{::h2},~{::section})">
+
+<div th:replace="fragments/base :: head"></div>
+<title>Sign Up </title>
 <body>
-<section>
+<div th:replace="fragments/header :: header"></div>
+<h2>Sign Up</h2>
+<section class="container-sm-3">
     <div>
-        <form action="#" th:action="@{/registration/customer}" th:object="${user}" method="post">
+        <form  action="#" th:action="@{/registration/customer}" th:object="${user}" method="post">
             <h3>Informations de connexion</h3>
             <!--<div hidden ><input th:field="*{id}" readonly type="number" name="id"></div>-->
             <!--<div hidden ><input th:field="*{clientNumber}" readonly type="number" name="clientNumber"></div>-->

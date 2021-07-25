@@ -30,6 +30,7 @@ public class LoanController {
         this.feignProxy = feignProxy;
     }
 
+
     @PostMapping("/extendLoan/{id}")
     public String extendLoan(@PathVariable(value="id") Long id,
                              @CookieValue(value=JwtProperties.HEADER, required=false) String accessToken) {

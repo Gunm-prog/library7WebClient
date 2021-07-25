@@ -1,10 +1,7 @@
 package com.emilie.library7WebClient.Proxy;
 
 
-import com.emilie.library7WebClient.Entities.Book;
-import com.emilie.library7WebClient.Entities.Library;
-import com.emilie.library7WebClient.Entities.User;
-import com.emilie.library7WebClient.Entities.UserAccountLogin;
+import com.emilie.library7WebClient.Entities.*;
 import com.emilie.library7WebClient.Security.JwtProperties;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +26,13 @@ public interface FeignProxy {
 
     @PostMapping("/api/v1/books/newBook")
     Book save();
+
+
+    /* ===Copy===*/
+    @GetMapping("/api/v1/copies/search")
+    List<Copy> searchCopies(@RequestBody Copy copy);
+
+
 
     /* ===Library ===*/
     @GetMapping("/api/v1/libraries/libraryList")

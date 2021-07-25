@@ -1,0 +1,44 @@
+!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+<!-- <link rel="stylesheet" href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}"/>-->
+
+</head>
+<body>
+
+<header id="header" th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <div class="text-white">
+                <h1>Dunkirk's Libraries</h1>
+            </div>
+            <ul class="navbar-nav mr-auto" id="leftMenu">
+                <!--<li class="nav-item">
+                  <a class="nav-link" th:href="@{/}">Home</a>
+                </li>-->
+                <li th:if="${currentUserId == null}" class="nav-item">
+                    <a class="nav-link" th:href="@{/registration/customer}">Register</a>
+                </li>
+                <li th:if="${currentUserId == null}" class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
+                </li>
+                <li th:if="${currentUserId != null}" class="nav-item">
+                    <a th:text="${userPseudo}" class="nav-link" th:href="@{/userAccount/{id} (id=${currentUserId})}">UserPseudo</a>
+                </li>
+                <li th:if="${currentUserId != null}" class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+</body>
+</html>
