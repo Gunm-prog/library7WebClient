@@ -13,4 +13,6 @@ public class Author {
     private String firstName;
     private String lastName;
     private Set<Book> books;
+    private Copy copDto;
+    private Set<Copy> copies;
 }

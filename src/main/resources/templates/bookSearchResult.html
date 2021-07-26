@@ -32,8 +32,8 @@
                 <p th:text="${copy.bookDto.isbn}">Isbn</p>
             </td>
             <td>
-                <p th:text="${copy.authorDto.lastName}">Author Lastname</p>
-                <p th:text="${copy.authorDto.firstName}">Author firstname</p>
+                <p th:text="${copy.bookDto.authorDto.lastName}">Author Lastname</p>
+                <p th:text="${copy.bookDto.authorDto.firstName}">Author firstname</p>
             </td>
             <td>
                 <p th:if="${copy.available == true}">Available</p>

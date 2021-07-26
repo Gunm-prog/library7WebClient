@@ -39,19 +39,15 @@ public class BookController {
    }
 
    @GetMapping("/searchCopies")
-   public String getBookSearch(Model model){
+   public String BookSearch(Model model){
        model.addAttribute( "copy", new Copy() );
        return BOOK_SEARCH;
    }
 
-   @PostMapping("/searchResult")
-   public String getBookSearchResult(@ModelAttribute(COPY_ATT) Copy copyInfo, Model model){
+   @GetMapping("/searchResult")
+   public String BookSearchResult(@ModelAttribute(COPY_ATT) Copy copyInfo, Model model){
        //todo probleme, feign part avec le post methode de ce controller... même si il est declaré comme GET...
-      //model.addAttribute("copies", feignProxy.searchCopies(copyInfo) );
-
-       //todo test a retirer
-       ArrayList copies = new ArrayList();
-      model.addAttribute("copies", copies );
+      model.addAttribute("copies", feignProxy.searchCopies(copyInfo) );
 
        return BOOK_SEARCH_RESULT;
    }
