@@ -16,6 +16,7 @@ public class Book {
     private Author authorDto;
     private Set<Copy> copies;
 
+
     @Override
     public String toString() {
         return "Book{" +

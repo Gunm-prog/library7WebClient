@@ -8,7 +8,7 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <h2>Book Search</h2>
-<section>
+<section class="search container align-middle bg-light">
     <form action="#" th:action="@{/book/searchResult}" th:object="${copy}" method="get">
 
         <h3>Book Title - Isbn</h3>

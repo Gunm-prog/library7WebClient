@@ -30,9 +30,10 @@ public interface FeignProxy {
 
     /* ===Copy===*/
     @GetMapping("/api/v1/copies/search")
-    List<Copy> searchCopies(@RequestBody Copy copy);
-
-
+    List<Copy> searchCopies(@RequestParam(value = "title", required = false) String title,
+                            @RequestParam(value="isbn", required=false) String isbn,
+                            @RequestParam(value="firstName", required=false) String firstName,
+                            @RequestParam(value="lastName", required=false) String lastName);
 
 
 

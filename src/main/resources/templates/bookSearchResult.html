@@ -10,8 +10,8 @@
 <div th:replace="fragments/header :: header"></div>
 <h2>Book Search Results</h2>
 
-<section>
-    <table>
+<section class="searchResult container align-middle bg-light">
+    <table class="table">
         <tr>
             <th>Isbn</th>
             <th>Title</th>
@@ -19,7 +19,6 @@
             <th>Availability</th>
             <th>Library</th>
         </tr>
-        ${#lists.size(spot.comments) != 0}"
         <tr th:if="${#lists.size(copies) == 0}">
             <td colspan="5">No result</td>
         </tr>
@@ -38,6 +37,9 @@
             <td>
                 <p th:if="${copy.available == true}">Available</p>
                 <p th:if="${copy.available == false}"> Not available</p>
+            </td>
+            <td>
+                <p th:text="${copy.libraryDto.name}"> Library Name</p>
             </td>
 
 

@@ -47,7 +47,11 @@ public class BookController {
    @GetMapping("/searchResult")
    public String BookSearchResult(@ModelAttribute(COPY_ATT) Copy copyInfo, Model model){
        //todo probleme, feign part avec le post methode de ce controller... même si il est declaré comme GET...
-      model.addAttribute("copies", feignProxy.searchCopies(copyInfo) );
+       String title = copyInfo.getBookDto().getTitle();
+       String isbn = copyInfo.getBookDto().getIsbn();
+       String firstName = copyInfo.getBookDto().getAuthorDto().getFirstName();
+       String lastName = copyInfo.getBookDto().getAuthorDto().getLastName();
+       model.addAttribute("copies", feignProxy.searchCopies(title, isbn, firstName, lastName) );
 
        return BOOK_SEARCH_RESULT;
    }

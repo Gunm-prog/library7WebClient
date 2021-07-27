@@ -13,7 +13,7 @@ public class Library {
     private Long id;
     private String name;
     private String phoneNumber;
-    private String address;
     private Set<Copy> copies;
+    private Address addressDto;
 
 }
