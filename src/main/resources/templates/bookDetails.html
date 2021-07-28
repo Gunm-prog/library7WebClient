@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="fr">
-<meta charset="UTF-8">
-<head>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/base :: base(~{::title},~{::h2},~{::section})">
+<div th:replace="fragments/base :: head"></div>
 
-</head>
+<title>Book Details</title>
+
 <body>
-
-<p th:text="${book.id}"> id book </p>
-<p th:text="${book.isbn}"> isbn book </p>
-<p th:text="${book.title}"> title book </p>
-<p th:text="${book.summary}"> summary book </p>
-<p th:text="${book.author}"> author book </p>
-<p th:text="${book.copies}"> copies book </p>
-
-
+<div th:replace="fragments/header :: header"></div>
+<h2>Book Details</h2>
+<section class="search container align-middle bg-light">
+    <div class="card col-sm-9 forOne-card">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${book.title}">Card title</h5>
+            <p class="card-text" th:text="${book.authorDto.firstName + ' ' + book.authorDto.lastName}"> Author </p>
+            <p class="card-text" th:text="${book.summary}"> Summary  </p>
+        </div>
+    </div>
+</section>
 </body>
-
-
 </html>
+
+
+

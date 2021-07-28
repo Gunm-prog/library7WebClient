@@ -1,47 +1,88 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="fr">
-<meta charset="UTF-8">
-<head>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/base :: base(~{::title},~{::h2},~{::section})">
+<div th:replace="fragments/base :: head"></div>
 
-</head>
+<title>Search</title>
+
 <body>
+<div th:replace="fragments/header :: header"></div>
+<h2>Hello</h2>
+<section class="search container align-middle bg-light">
+    <h3>User Infos</h3>
+    <!--<div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="text" class="form-control" th:field="*{userInfos.email}" name="Email"
+               placeholder="Email">
+        <label for="password">Password</label>
+        <input id="password" type="text" class="form-control" th:field="*{userInfos.password}" name="password" placeholder="Password">
 
-<p>hello</p>
-<!--<p th:text="${userInfos.userId}"> userID </p>-->
-<!--<p th:text="${userInfos.username}"> user name </p>-->
-<p th:text="${userInfos.email}"> user email </p>
-<p th:text="${userInfos.password}"> user password </p>
-<p th:text="${userInfos.lastName}"> user last name </p>
-<p th:text="${userInfos.firstName}"> user first name</p>
+    <label for="lastName">Lastname</label>
+    <input id="lastName" type="text" class="form-control" th:field="*{userInfos.lastName}" name="lastName" placeholder="Lastname">
+    <label for="firstName">Firstname</label>
+    <input id="firstName" type="text" class="form-control" th:field="*{userInfos.firstName}" name="firstName" placeholder="Firstname">
+    <label for="addressDto">Address</label>
+    <input id="addressDto" type="text" class="form-control" th:field="*{userInfos.addressDto}" name="addressDto" placeholder="Address">
+    </div>-->
+    <table class="table">
+        <tr>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Lastname</th>
+            <th>Firstname</th>
+            <th>Address</th>
+        </tr>
+        <tr>
+            <td>
+                <p th:text="${userInfos.email}">Email</p>
+            </td>
+           <td>
+                <p th:text="${userInfos.password}">Password</p>
+           </td>
+            <td>
+                <p th:text="${userInfos.lastName}">Lastname</p>
+            <td>
+                <p th:text="${userInfos.firstName}">Firstname</p>
+             </td>
+            <td class="card">
+                <div class="card-body">
+                <p class="card-text" th:text="${userInfos.addressDto.number + ' ' + userInfos.addressDto.street}">Number - Street</p>
+                <p class="card-text" th:text="${userInfos.addressDto.zipCode + ' ' + userInfos.addressDto.city}">Zipcode - City</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table class="table">
+        <tr>
+            <th>Books</th>
+            <th>Loan start date</th>
+            <th>Loan end date</th>
+            <!--<th>Loan status</th>-->
+            <th>Library</th>
+        </tr>
+        <tr th:each="loan: ${userInfos.loanDtos}">
+            <td class="card">
+                <div class="card-body">
+                <h5 class="card-title" th:text="${'Title: ' + loan.copyDto.bookDto.title}">Loaned book title</h5>
+                <p class="card-text" th:text="${'Isbn: ' + loan.copyDto.bookDto.isbn}">Isbn</p>
+                <p class="card-text" th:text="${'Author: ' + loan.copyDto.bookDto.authorDto.firstName + ' ' +
+            loan.copyDto.bookDto.authorDto.lastName}">Author</p>
+                </div>
+            </td>
+            <td th:text="${loan.loanStartDate}"> Loan start date</td>
+            <td>
+                <p th:text="${loan.loanEndDate}">Loan end date</p>
 
-<table>
-    <tr>
-        <th>Ouvrages</th>
-        <th>Loan start date</th>
-        <th>Loan end date</th>
-        <th>Library</th>
-    </tr>
-
-    <tr th:each="loan: ${userInfos.loanDtos}">
-        <td>
-            <p th:text="${loan.copyDto.bookDto.title}">Loaned book title</p>
-            <p th:text="${loan.copyDto.bookDto.isbn}">Isbn</p>
-            <p th:text="${loan.copyDto.bookDto.authorDto.firstName + ' ' +
-            loan.copyDto.bookDto.authorDto.lastName}"></p>
-        </td>
-        <td th:text="${loan.loanStartDate}"> Loan start date</td>
-        <td>
-            <p th:text="${loan.loanEndDate}">Loan end date</p>
-
-            <form action="#" th:action="@{'/extendLoan/{id}' (id=${loan.id})}" method="post"
-                  th:if="${loan.extended == false}">
-                <input type="submit" value="Extend loan"/>
-            </form>
-        </td>
-
-        <td th:text="${loan.copyDto.libraryDto.name}"> Library</td>
-    </tr>
-</table>
+                <form action="#" th:action="@{'/extendLoan/{id}' (id=${loan.id})}" method="post"
+                      th:if="${loan.extended == false}">
+                    <input type="submit" value="Extend loan"/>
+                </form>
+            </td>
+            <!--<td th:text="${loan.loanStatus}">LoanStatus</td>-->
+            <td th:text="${loan.copyDto.libraryDto.name}"> Library</td>
+        </tr>
+    </table>
+</section>
 </body>
 </html>
 

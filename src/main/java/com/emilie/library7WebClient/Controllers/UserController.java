@@ -4,6 +4,7 @@ package com.emilie.library7WebClient.Controllers;
 import com.emilie.library7WebClient.Proxy.FeignProxy;
 import com.emilie.library7WebClient.Security.JwtProperties;
 import com.emilie.library7WebClient.Entities.User;
+import com.emilie.library7WebClient.Security.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +42,7 @@ public class UserController {
         User user = feignProxy.getLoggedUser( accessToken );
         System.out.println(user);
         model.addAttribute("userInfos", user );
+        model.addAttribute( "currentUserId", JwtTokenUtils.getUserIdFromJWT( accessToken ) );
         return USER_ACCOUNT_VIEW;
 
 

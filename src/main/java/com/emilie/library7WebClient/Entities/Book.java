@@ -9,7 +9,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Book {
 
-    private Long id;
+    private Long bookId;
     private String title;
     private String isbn;
     private String summary;
@@ -20,7 +20,7 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
+                "id=" + bookId +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
                 ", summary='" + summary + '\'' +

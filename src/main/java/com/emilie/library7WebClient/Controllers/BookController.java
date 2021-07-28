@@ -2,7 +2,9 @@ package com.emilie.library7WebClient.Controllers;
 
 
 
+import com.emilie.library7WebClient.Entities.Book;
 import com.emilie.library7WebClient.Entities.Copy;
+import com.emilie.library7WebClient.Entities.Library;
 import com.emilie.library7WebClient.Proxy.FeignProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -11,10 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
-@RequestMapping("/book")
+@RequestMapping("/books")
 public class BookController {
 
     private static final String BOOK_LIST = "bookList";
@@ -56,34 +59,15 @@ public class BookController {
        return BOOK_SEARCH_RESULT;
    }
 
-  @GetMapping("/bookList")
-    public String retrieveAllBooks(Model model) {
-        model.addAttribute(BOOK_LIST, feignProxy.getBookList() );
-        /*model.addAttribute( LIBRARY, feignProxy.getLibraryList() );*/
 
-        /*return CATALOG_VIEW;*/
-        return "bookList";
-    }
-
-   /*@GetMapping("/bookDetails/{id}")
+   @GetMapping("/details/{id}")
     public String getById(@PathVariable("id") Long id, Model model){
         Book book = feignProxy.getBookById( id);
+       System.out.println(book );
         model.addAttribute("book", book);
 
        return BOOK_DETAILS_VIEW;
    }
 
-    @GetMapping("/libraryList")
-    public String getAllLibraries(Model model){
 
-        model.addAttribute( LIBRARY_LIST, feignProxy.getLibraryList() );
-
-        return LIBRARY_LIST;
-    }
-
-    @GetMapping("/libraryDetails/{id}")
-    public String getLibraryById (@PathVariable("id") Long id, Model model){
-        model.addAttribute( LIBRARY_DETAILS_VIEW, feignProxy.getLibraryById( id ) );
-        return LIBRARY_DETAILS_VIEW;
-    }*/
 }

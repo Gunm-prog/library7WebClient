@@ -29,8 +29,11 @@
                 <li th:if="${currentUserId == null}" class="nav-item">
                     <a class="nav-link" th:href="@{/login}">Login</a>
                 </li>
+                <li>
+                    <a class="nav-link" th:href="@{/books/searchCopies}">Search</a>
+                </li>
                 <li th:if="${currentUserId != null}" class="nav-item">
-                    <a th:text="${userPseudo}" class="nav-link" th:href="@{/userAccount/{id} (id=${currentUserId})}">UserPseudo</a>
+                    <a class="nav-link" th:href="@{/userAccount}">My Account</a>
                 </li>
                 <li th:if="${currentUserId != null}" class="nav-item">
                     <a class="nav-link" th:href="@{/logout}">Logout</a>

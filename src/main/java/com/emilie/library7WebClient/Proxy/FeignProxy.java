@@ -21,8 +21,8 @@ public interface FeignProxy {
     @GetMapping("/api/v1/books/{id}")
     Book getBookById(@PathVariable Long id/*, @RequestHeader("Authorization") String accessToken*/);
 
-    @GetMapping("/api/v1/books/catalog")
-    List<Book> getBookList();
+    @GetMapping("/api/v1/books/{id}")
+    Book getById();
 
     @PostMapping("/api/v1/books/newBook")
     Book save();

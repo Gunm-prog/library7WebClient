@@ -27,6 +27,11 @@ box-shadow: 5px 5px 5px black;
     min-width:200px;
 }
 
+.forOne-card{
+    width:60%;
+    margin:auto;
+}
+
 .login {
     width:25%;
 }

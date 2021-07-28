@@ -26,6 +26,7 @@
             affichera les diverses infos ci-dessous
             <td>
                 <p th:text="${copy.bookDto.title}">Title</p>
+                <a class="nav-link" th:text="${copy.bookDto.title}" th:href="@{/books/details/{id}(id=${copy.bookDto.bookId})}">Book Details</a>
             </td>
             <td>
                 <p th:text="${copy.bookDto.isbn}">Isbn</p>
@@ -39,10 +40,8 @@
                 <p th:if="${copy.available == false}"> Not available</p>
             </td>
             <td>
-                <p th:text="${copy.libraryDto.name}"> Library Name</p>
+                <a class="nav-link" th:text="${copy.libraryDto.name}" th:href="@{/libraries/{id}(id=${copy.libraryDto.libraryId})}">Library Name</a>
             </td>
-
-
         </tr>
     </table>
 </section>

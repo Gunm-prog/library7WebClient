@@ -82,6 +82,7 @@ public class LoginController {
 
             //Add token to response in a cookie
             Cookie cookie = JwtTokenUtils.generateCookie( jwtToken );
+            cookie.setMaxAge(3600);
             response.addCookie( cookie );
 
             return REDIRECT_USER_HOME_VIEW;
