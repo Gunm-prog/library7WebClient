@@ -11,5 +11,5 @@ public class Copy {
     private boolean available;
     private Book bookDto;
     private Library libraryDto;
-    private Author authorDto;
+
 }

@@ -27,14 +27,12 @@ public interface FeignProxy {
     @PostMapping("/api/v1/books/newBook")
     Book save();
 
-
-    /* ===Copy===*/
-    @GetMapping("/api/v1/copies/search")
-    List<Copy> searchCopies(@RequestParam(value = "title", required = false) String title,
-                            @RequestParam(value="isbn", required=false) String isbn,
-                            @RequestParam(value="firstName", required=false) String firstName,
-                            @RequestParam(value="lastName", required=false) String lastName);
-
+    @GetMapping("/api/v1/books/search")
+    List<Book> searchBooks(@RequestParam(value = "libraryId", required=false) Long libraryId,
+                           @RequestParam(value = "title", required = false) String title,
+                           @RequestParam(value="isbn", required=false) String isbn,
+                           @RequestParam(value="firstname", required=false) String firstName,
+                           @RequestParam(value="lastname", required=false) String lastName);
 
 
     /* ===Library ===*/
@@ -65,6 +63,8 @@ public interface FeignProxy {
     @PutMapping("/api/v1/loans/extendLoan/{id}")
     ResponseEntity<?> extendLoan(@PathVariable(value="id") Long id,
                                  @RequestHeader(JwtProperties.HEADER) String accessToken);
+
+
 
     /* ===Loan ===*/
    /* @GetMapping("api/v1/loans/loanList/{userId}/{userLoans}")

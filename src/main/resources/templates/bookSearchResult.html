@@ -17,31 +17,34 @@
             <th>Title</th>
             <th>Author</th>
             <th>Availability</th>
-            <th>Library</th>
         </tr>
-        <tr th:if="${#lists.size(copies) == 0}">
+        <tr th:if="${#lists.size(books) == 0}">
             <td colspan="5">No result</td>
         </tr>
-        <tr th:if="${#lists.size(copies) != 0}" th:each="copy: ${copies}"> pour chaque copy de la list de copies, on
-            affichera les diverses infos ci-dessous
+        <tr th:if="${#lists.size(books) != 0}" th:each="book: ${books}"> <!--pour chaque book de la list de books, on
+            affichera les diverses infos ci-dessous -->
             <td>
-                <p th:text="${copy.bookDto.title}">Title</p>
-                <a class="nav-link" th:text="${copy.bookDto.title}" th:href="@{/books/details/{id}(id=${copy.bookDto.bookId})}">Book Details</a>
+                <p th:text="${book.isbn}">Isbn</p>
+
             </td>
             <td>
-                <p th:text="${copy.bookDto.isbn}">Isbn</p>
+                <p th:text="${book.title}">Title</p>
+                <a class="nav-link" th:href="@{/books/details/{id}(id=${book.bookId})}">Summary</a>
+            </td>
+
+            <td>
+                <p th:text="${book.authorDto.lastName}">Author Lastname</p>
+                <p th:text="${book.authorDto.firstName}">Author firstname</p>
             </td>
             <td>
-                <p th:text="${copy.bookDto.authorDto.lastName}">Author Lastname</p>
-                <p th:text="${copy.bookDto.authorDto.firstName}">Author firstname</p>
+                <table>
+                    <tr th:each="library: ${book.libraries}">
+                        <th>  <a class="nav-link" th:text="${library.name}" th:href="@{/libraries/{id}(id=${library.libraryId})}">Library Name</a></th>
+                        <td th:text="${library.NbAvailableCopies + ' / ' + library.NbCopies}"> available / max </td>
+                    </tr>
+                </table>
             </td>
-            <td>
-                <p th:if="${copy.available == true}">Available</p>
-                <p th:if="${copy.available == false}"> Not available</p>
-            </td>
-            <td>
-                <a class="nav-link" th:text="${copy.libraryDto.name}" th:href="@{/libraries/{id}(id=${copy.libraryDto.libraryId})}">Library Name</a>
-            </td>
+
         </tr>
     </table>
 </section>

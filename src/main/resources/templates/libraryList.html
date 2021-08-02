@@ -20,8 +20,7 @@
                 <h5 class="card-title" th:text="${library.name}">Card title</h5>
                 <p class="card-text" th:text="${library.addressDto.number + ' ' +
                 library.addressDto.street}">Address</p>
-                <p class="card-text" th:text="${library.addressDto.zipCode}">Zipcode</p>
-                <p class="card-text" th:text="${library.addressDto.city}">City</p>
+                <p class="card-text" th:text="${library.addressDto.zipCode + ' ' + library.addressDto.city}">Zipcode - City</p>
                 <p class="card-text" th:text="${library.phoneNumber}">Phone Number</p>
 
             </div>

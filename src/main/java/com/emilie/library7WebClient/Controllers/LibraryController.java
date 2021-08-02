@@ -2,10 +2,13 @@ package com.emilie.library7WebClient.Controllers;
 
 import com.emilie.library7WebClient.Entities.Library;
 import com.emilie.library7WebClient.Proxy.FeignProxy;
+import com.emilie.library7WebClient.Security.JwtProperties;
+import com.emilie.library7WebClient.Security.JwtTokenUtils;
 import org.bouncycastle.math.raw.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +31,11 @@ public class LibraryController {
 
 
     @GetMapping("/{id}")
-    public String library(@PathVariable("id") Long id, Model model){
+    public String library(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, @PathVariable("id") Long id, Model model){
+        if (accessToken != null){
+            int userId =JwtTokenUtils.getUserIdFromJWT( accessToken );
+            model.addAttribute( "currentUserId", userId );
+        }
         Library library = feignProxy.getLibraryById( id );
         model.addAttribute("library", library );
 
@@ -36,7 +43,11 @@ public class LibraryController {
     }
 
     @GetMapping("/list")
-    public String libraryList(Model model){
+    public String libraryList(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, Model model){
+        if (accessToken != null){
+            int userId = JwtTokenUtils.getUserIdFromJWT( accessToken );
+            model.addAttribute( "currentUserId", userId);
+        }
         List<Library> libraries = feignProxy.getLibraryList();
         model.addAttribute( "libraries", libraries );
         return "libraryList";

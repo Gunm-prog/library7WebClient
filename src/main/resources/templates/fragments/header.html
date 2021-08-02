@@ -29,17 +29,41 @@
                 <li th:if="${currentUserId == null}" class="nav-item">
                     <a class="nav-link" th:href="@{/login}">Login</a>
                 </li>
-                <li>
+                <li th:if="${currentUserId == null}" class="nav-item">
                     <a class="nav-link" th:href="@{/books/searchCopies}">Search</a>
                 </li>
-                <li th:if="${currentUserId != null}" class="nav-item">
-                    <a class="nav-link" th:href="@{/userAccount}">My Account</a>
+                <li class="nav-item dropdown" th:if="${currentUserId != null}" >
+
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuMyAccountLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        My Account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuMyAccountLink">
+                        <a class="dropdown-item" th:href="@{/userAccount}">My Account</a>
+                    </div><!--<a class="nav-link" th:href="@{/userAccount}">My Account</a>-->
                 </li>
                 <li th:if="${currentUserId != null}" class="nav-item">
                     <a class="nav-link" th:href="@{/logout}">Logout</a>
                 </li>
             </ul>
 
+            <ul class="navbar-nav mr-auto" id="rightMenu">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuBookLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Books</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuBookLink">
+                        <a class="dropdown-item" th:href="@{/books/searchCopies}">Search</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLibraryLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Libraries</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLibraryLink">
+                        <a class="dropdown-item" th:href="@{/libraries/list}">List</a>
+                    </div>
+                </li>
+
+            </ul>
         </div>
     </nav>
 </header>

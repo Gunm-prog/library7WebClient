@@ -27,27 +27,25 @@
     <table class="table">
         <tr>
             <th>Email</th>
-            <th>Password</th>
-            <th>Lastname</th>
-            <th>Firstname</th>
+            <th>Lastname - Firstname</th>
             <th>Address</th>
         </tr>
         <tr>
             <td>
                 <p th:text="${userInfos.email}">Email</p>
             </td>
-           <td>
-                <p th:text="${userInfos.password}">Password</p>
-           </td>
-            <td>
-                <p th:text="${userInfos.lastName}">Lastname</p>
-            <td>
-                <p th:text="${userInfos.firstName}">Firstname</p>
-             </td>
             <td class="card">
                 <div class="card-body">
-                <p class="card-text" th:text="${userInfos.addressDto.number + ' ' + userInfos.addressDto.street}">Number - Street</p>
-                <p class="card-text" th:text="${userInfos.addressDto.zipCode + ' ' + userInfos.addressDto.city}">Zipcode - City</p>
+                    <p th:text="${userInfos.lastName}">Lastname</p>
+                    <p th:text="${userInfos.firstName}">Firstname</p>
+                </div>
+            </td>
+            <td class="card">
+                <div class="card-body">
+                    <p class="card-text" th:text="${userInfos.addressDto.number + ' ' + userInfos.addressDto.street}">
+                        Number - Street</p>
+                    <p class="card-text" th:text="${userInfos.addressDto.zipCode + ' ' + userInfos.addressDto.city}">
+                        Zipcode - City</p>
                 </div>
             </td>
         </tr>
@@ -63,9 +61,9 @@
         <tr th:each="loan: ${userInfos.loanDtos}">
             <td class="card">
                 <div class="card-body">
-                <h5 class="card-title" th:text="${'Title: ' + loan.copyDto.bookDto.title}">Loaned book title</h5>
-                <p class="card-text" th:text="${'Isbn: ' + loan.copyDto.bookDto.isbn}">Isbn</p>
-                <p class="card-text" th:text="${'Author: ' + loan.copyDto.bookDto.authorDto.firstName + ' ' +
+                    <h5 class="card-title" th:text="${'Title: ' + loan.copyDto.bookDto.title}">Loaned book title</h5>
+                    <p class="card-text" th:text="${'Isbn: ' + loan.copyDto.bookDto.isbn}">Isbn</p>
+                    <p class="card-text" th:text="${'Author: ' + loan.copyDto.bookDto.authorDto.firstName + ' ' +
             loan.copyDto.bookDto.authorDto.lastName}">Author</p>
                 </div>
             </td>
@@ -78,7 +76,6 @@
                     <input type="submit" value="Extend loan"/>
                 </form>
             </td>
-            <!--<td th:text="${loan.loanStatus}">LoanStatus</td>-->
             <td th:text="${loan.copyDto.libraryDto.name}"> Library</td>
         </tr>
     </table>
