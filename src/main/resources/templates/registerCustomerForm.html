@@ -6,41 +6,39 @@ th:replace="fragments/base :: base(~{::title},~{::h2},~{::section})">
 <title>Sign Up </title>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<h2>Sign Up</h2>
-<section class="container-sm-3">
-    <div>
+<h2></h2>
+<section class="login container align-middle bg-light">
         <form  action="#" th:action="@{/registration/customer}" th:object="${user}" method="post">
-            <h3>Informations de connexion</h3>
-            <!--<div hidden ><input th:field="*{id}" readonly type="number" name="id"></div>-->
-            <!--<div hidden ><input th:field="*{clientNumber}" readonly type="number" name="clientNumber"></div>-->
+            <h3><!--Informations de connexion--></h3>
+            <!--<div hidden ><input th:field="*{id}" readonly type="number" name="id"></div> -->
+            <!--<div hidden ><input th:field="*{clientNumber}" readonly type="number" name="clientNumber"></div> -->
             <div class="form-group">
-                <label for="firstName">Prénom</label>
+                <!--<label for="firstName">Prénom</label>-->
                 <input id="firstName" class="form-control" th:field="*{firstName}" type="text" name="firstName" placeholder="Prénom" required>
 
-                <label for="lastName">Nom</label>
+                <!--<label for="lastName">Nom</label>-->
                 <input id="lastName" class="form-control" th:field="*{lastName}" type="text" name="lastName" placeholder="Nom" required>
             </div>
             <div class="form-group">
-                <label for="email">Email</label>
+                <!--<label for="email">Email</label>-->
                 <input id="email" class="form-control" th:field="*{email}" type="email" name="email" placeholder="Email"
                        required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="adresse email valide">
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
+                <!--<label for="password">Password</label>-->
                 <input class="form-control" th:field="*{password}" type="password" name="password" id="password"
-                       placeholder="*Changer le mot de passe*" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+                       placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
                        title="1 majuscule, 1 minuscule, 1 chiffre et 6 caractères minimum" required>
-                <label for="confirm_password">Confirmation</label>
+                <!--<label for="confirm_password">Confirmation</label>-->
                 <input class="form-control" type="password" name="confirm_password" id="confirm_password"
-                       placeholder="*Confirmer le changement*" required >
+                       placeholder="confirm" required >
             </div>
 
-            <h3>Adresse</h3>
             <div class="form-group">
-                <label for="number">Numéro</label><input id="number" class="form-control" th:field="*{addressDto.number}" type="text" name="number" required>
-                <label for="street">Rue</label><input id="street" class="form-control" th:field="*{addressDto.street}" type="text" name="street" placeholder="rue" required>
-                <label for="zipCode">zipCode</label><input id="zipCode" class="form-control" th:field="*{addressDto.zipCode}" type="text" name="zipCode" placeholder="zipCode" required>
-                <label for="city">City</label><input id="city" class="form-control" th:field="*{addressDto.city}" type="text" name="city" placeholder="ville" required>
+                <!--<label for="number">Numéro</label>--><input id="number" class="form-control" th:field="*{addressDto.number}" type="text" name="number" placeholder="number" required>
+                <!--<label for="street">Rue</label>--><input id="street" class="form-control" th:field="*{addressDto.street}" type="text" name="street" placeholder="rue" required>
+                <!--<label for="zipCode">zipCode</label>--><input id="zipCode" class="form-control" th:field="*{addressDto.zipCode}" type="text" name="zipCode" placeholder="zipCode" required>
+                <!--<label for="city">City</label>--><input id="city" class="form-control" th:field="*{addressDto.city}" type="text" name="city" placeholder="ville" required>
             </div>
 
 
@@ -48,7 +46,6 @@ th:replace="fragments/base :: base(~{::title},~{::h2},~{::section})">
                 <button class="btn btn-primary btn-block" type="submit">Enregistrer</button>
             </div>
         </form>
-    </div>
 </section>
 </body>
 </html>

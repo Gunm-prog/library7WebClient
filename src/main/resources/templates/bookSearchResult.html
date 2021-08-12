@@ -8,10 +8,10 @@
 
 <body>
 <div th:replace="fragments/header :: header"></div>
-<h2>Book Search Results</h2>
+<h2><!--Book Search Results--></h2>
 
 <section class="searchResult container align-middle bg-light">
-    <table class="table">
+    <table class="table align-middle">
         <tr>
             <th>Isbn</th>
             <th>Title</th>
@@ -37,12 +37,10 @@
                 <p th:text="${book.authorDto.firstName}">Author firstname</p>
             </td>
             <td>
-                <table>
-                    <tr th:each="library: ${book.libraries}">
-                        <th>  <a class="nav-link" th:text="${library.name}" th:href="@{/libraries/{id}(id=${library.libraryId})}">Library Name</a></th>
-                        <td th:text="${library.NbAvailableCopies + ' / ' + library.NbCopies}"> available / max </td>
-                    </tr>
-                </table>
+                <div class="text-center" th:each="library: ${book.libraries}">
+                    <p class="strong"><a class="nav-link" th:text="${library.name}" th:href="@{/libraries/{id}(id=${library.libraryId})}">Library Name</a></p>
+                    <p th:text="${library.NbAvailableCopies + ' / ' + library.NbCopies}"> available / max></p>
+                </div>
             </td>
 
         </tr>

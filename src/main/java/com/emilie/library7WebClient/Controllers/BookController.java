@@ -1,20 +1,19 @@
 package com.emilie.library7WebClient.Controllers;
 
 
-
 import com.emilie.library7WebClient.Entities.Book;
 import com.emilie.library7WebClient.Entities.Copy;
 import com.emilie.library7WebClient.Entities.Library;
 import com.emilie.library7WebClient.Proxy.FeignProxy;
 import com.emilie.library7WebClient.Security.JwtProperties;
 import com.emilie.library7WebClient.Security.JwtTokenUtils;
+import org.apache.tomcat.jni.Library;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
-
-import java.util.ArrayList;
+import java.awt.print.Book;
 import java.util.List;
 
 
@@ -58,7 +57,7 @@ public class BookController {
        return BOOK_SEARCH;
    }
 
-   //TODO envoyer au model un tableau contenant les livres avec le nb de copies dispo et non dispo
+
    @GetMapping("/searchResult")
    public String BookSearchResult(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, @ModelAttribute(COPY_ATT) Copy copyInfo, Model model){
        if (accessToken != null){

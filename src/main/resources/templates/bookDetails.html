@@ -7,13 +7,20 @@
 
 <body>
 <div th:replace="fragments/header :: header"></div>
-<h2>Book Details</h2>
-<section class="search container align-middle bg-light">
+<h2><!--Book Details--></h2>
+<section class="section-bookDetails container align-middle bg-light">
     <div class="card col-sm-9 forOne-card">
         <div class="card-body">
+            <img class="bookCover float-start"  th:src="@{${'/image/covers/' + book.bookId +'.png'}}" alt="bookImage"/>
             <h5 class="card-title" th:text="${book.title}">Card title</h5>
-            <p class="card-text" th:text="${book.authorDto.firstName + ' ' + book.authorDto.lastName}"> Author </p>
-            <p class="card-text" th:text="${book.summary}"> Summary  </p>
+            <figure class="text-center">
+                <figcaption class="blockquote-footer">
+                    <p  th:text="${book.authorDto.firstName + ' ' + book.authorDto.lastName}"> Author </p>
+                </figcaption>
+                <blockquote class="blockquote">
+                    <p class="bookSummary lh-base" th:text="${book.summary}"> Summary  </p>
+                </blockquote>
+            </figure>
         </div>
     </div>
 </section>
