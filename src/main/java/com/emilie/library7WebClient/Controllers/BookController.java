@@ -7,13 +7,11 @@ import com.emilie.library7WebClient.Entities.Library;
 import com.emilie.library7WebClient.Proxy.FeignProxy;
 import com.emilie.library7WebClient.Security.JwtProperties;
 import com.emilie.library7WebClient.Security.JwtTokenUtils;
-import org.apache.tomcat.jni.Library;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
 import java.util.List;
 
 
