@@ -1,17 +1,13 @@
 package com.emilie.library7WebClient.Controllers;
 
-import com.emilie.library7WebClient.Entities.Loan;
 import com.emilie.library7WebClient.Proxy.FeignProxy;
 import com.emilie.library7WebClient.Security.JwtProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
 
 @Controller
 public class LoanController {

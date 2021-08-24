@@ -17,11 +17,13 @@ main{
     display:flex;
     align-items: center;
     justify-content:center;
+    overflow:auto;
 }
 
 #main-container{
     display:flex;
     align-items:center;
+    justify-content:center;
 }
 
 section{
@@ -31,6 +33,11 @@ box-shadow: 5px 5px 5px black;
     display:flex;
     align-items:center;
     justify-content:center;
+    margin-top:25px;
+}
+
+.column-dir{
+    flex-direction:column;
 }
 
 .section-card{
@@ -41,14 +48,18 @@ box-shadow: 5px 5px 5px black;
     width:90%!important;
 }
 
+.section-account{
+    height:90%!important;
+}
+
 .borderless{
     border-style:none;
     box-shadow:0px 0px 0px;
 }
 
-form{
+/*form{
     padding:auto;
-}
+}*/
 
 .form-group{
     margin:25px;
@@ -108,9 +119,13 @@ input,select{
     width:80%!important;
 }
 
-.searchResult{
+/*.searchResult{
     width:90%!important;
 
+}*/
+
+.width90{
+    width:90%!important;
 }
 
 .footer {
@@ -118,4 +133,12 @@ input,select{
     height: 60px;
     background: #000000;
     color: #FFFFFF;
+}
+
+table{
+    margin:100px!important;
+}
+
+th, td{
+    vertical-align:center;
 }

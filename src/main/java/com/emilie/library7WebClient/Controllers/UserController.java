@@ -20,6 +20,7 @@ public class UserController {
     private static final String SIGN_UP_FORM_VIEW = "registerForm";
     private static final String REDIRECT_LOGIN_VIEW = "redirect:/login";
     private static final String USER_ACCOUNT_VIEW = "userAccount";
+    private static final String REDIRECT_USER_ACCOUNT_VIEW = "redirect:/userAccount";
     private static final String USER_ATT = "user";
 
     private final FeignProxy feignProxy;
@@ -27,11 +28,6 @@ public class UserController {
     @Autowired
     public UserController(FeignProxy feignProxy ) {
         this.feignProxy=feignProxy;
-    }
-
-    @GetMapping("/test")
-    public String test(){
-        return USER_ACCOUNT_VIEW;
     }
 
 
@@ -44,8 +40,14 @@ public class UserController {
         model.addAttribute("userInfos", user );
         model.addAttribute( "currentUserId", JwtTokenUtils.getUserIdFromJWT( accessToken ) );
         return USER_ACCOUNT_VIEW;
+    }
 
-
+    @PostMapping("/updateUserAccount")
+    public String updateUserAccount(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, @ModelAttribute(USER_ATT) User modifiedUser){
+        if (accessToken == null) return REDIRECT_LOGIN_VIEW;
+        modifiedUser.setUserId(JwtTokenUtils.getUserIdFromJWT( accessToken ).longValue());
+        User user = feignProxy.updateUser(accessToken, modifiedUser );
+        return REDIRECT_USER_ACCOUNT_VIEW;
     }
 }
 
