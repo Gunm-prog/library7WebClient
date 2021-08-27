@@ -22,45 +22,68 @@
             </a>
         </li>
     </ul>
-    <div class="tab-content" id="myTabContent">
+    <div class="tab-content overflow-70h" id="myTabContent">
         <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
             <form  action="#" th:action="@{/updateUserAccount}" th:object="${userInfos}" method="post">
+                <div class="d-flex">
+                    <div>
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input id="firstName" class="form-control" th:field="*{firstName}" th:value="${userInfos.firstName}" type="text" name="firstName" placeholder="FirstName" >
+                                <label for="firstName">Prénom</label>
+                            </div>
 
-                <div class="form-group">
-                    <div class="form-floating">
-                        <input id="firstName" class="form-control" th:field="*{firstName}" th:value="${userInfos.firstName}" type="text" name="firstName" placeholder="FirstName" required>
-                        <label for="firstName">Prénom</label>
+                            <div class="form-floating">
+                                <input id="lastName" class="form-control" th:field="*{lastName}" th:value="${userInfos.lastName}" type="text" name="lastName" placeholder="lastName" >
+                                <label for="lastName">Nom</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input id="email" class="form-control" th:field="*{email}" type="email" name="email" placeholder="Email"
+                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="adresse email valide">
+                                <label for="email">Email</label>
+                            </div>
+                         <!--   <div class="form-floating">
+                                <input class="form-control" th:field="*{password}" type="password" name="password" id="password"
+                                       placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+                                       title="1 majuscule, 1 minuscule, 1 chiffre et 6 caractères minimum">
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="form-floating">
+                                <input class="form-control" type="password" name="confirm_password" id="confirm_password" placeholder="confirm" >
+                                <label for="confirm_password">Confirmation</label>
+                            </div>-->
+                        </div>
+
                     </div>
 
-                    <div class="form-floating">
-                        <input id="lastName" class="form-control" th:field="*{lastName}" th:value="${userInfos.lastName}" type="text" name="lastName" placeholder="lastName" required>
-                        <label for="lastName">Nom</label>
+                    <div>
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input id="number" class="form-control" th:field="*{addressDto.number}" th:value="${userInfos.addressDto.number}" type="text" name="number" placeholder="number" >
+                                <label for="number">Numéro</label>
+                            </div>
+
+                            <div class="form-floating">
+                                <input id="street" class="form-control" th:field="*{addressDto.street}" th:value="${userInfos.addressDto.street}" type="text" name="street" placeholder="street" >
+                                <label for="street">Rue</label>
+                            </div>
+
+                            <div class="form-floating">
+                                <input id="zipCode" class="form-control" th:field="*{addressDto.zipCode}" th:value="${userInfos.addressDto.zipCode}" type="text" name="zipCode" placeholder="zipCode" >
+                                <label for="zipCode">zipCode</label>
+                            </div>
+
+                            <div class="form-floating">
+                                <input id="city" class="form-control" th:field="*{addressDto.city}" th:value="${userInfos.addressDto.city}" type="text" name="city" placeholder="city" >
+                                <label for="city">City</label>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
-
-                <div class="form-group">
-                    <div class="form-floating">
-                        <input id="number" class="form-control" th:field="*{addressDto.number}" th:value="${userInfos.addressDto.number}" type="text" name="number" placeholder="number" required>
-                        <label for="number">Numéro</label>
-                    </div>
-
-                    <div class="form-floating">
-                        <input id="street" class="form-control" th:field="*{addressDto.street}" th:value="${userInfos.addressDto.street}" type="text" name="street" placeholder="street" required>
-                        <label for="street">Rue</label>
-                    </div>
-
-                    <div class="form-floating">
-                        <input id="zipCode" class="form-control" th:field="*{addressDto.zipCode}" th:value="${userInfos.addressDto.zipCode}" type="text" name="zipCode" placeholder="zipCode" required>
-                        <label for="zipCode">zipCode</label>
-                    </div>
-
-                    <div class="form-floating">
-                        <input id="city" class="form-control" th:field="*{addressDto.city}" th:value="${userInfos.addressDto.city}" type="text" name="city" placeholder="city" required>
-                        <label for="city">City</label>
-                    </div>
-                </div>
-
-
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" type="submit">Change</button>
                 </div>
@@ -69,166 +92,55 @@
 
 
         <div class="tab-pane fade" id="loans" role="tabpanel" aria-labelledby="loans-tab">
-            <table class="table width90">
-                <tr>
+            <table class="table width90 align-middle">
+                <tr class="tableTitle">
                     <th>Books</th>
                     <th>Loan start date</th>
                     <th>Loan end date</th>
                     <!--<th>Loan status</th>-->
                     <th>Library</th>
+                    <th>Status</th>
                 </tr>
                 <tr th:each="loan: ${userInfos.loanDtos}">
                     <td>
-                        <h5 class="card-title" th:text="${'Title: ' + loan.copyDto.bookDto.title}">Loaned book title</h5>
-                        <p class="card-text" th:text="${'Isbn: ' + loan.copyDto.bookDto.isbn}">Isbn</p>
-                        <p class="card-text" th:text="${'Author: ' + loan.copyDto.bookDto.authorDto.firstName + ' ' +
+                        <img class="bookCover float-start w-50"  th:src="@{${'/image/covers/' + loan.copyDto.bookDto.bookId +'.png'}}" alt="bookImage"/>
+                        <h5 class="card-title" th:text="${loan.copyDto.bookDto.title}">Loaned book title</h5>
+                        <p class="card-text" th:text="${loan.copyDto.bookDto.isbn}">Isbn</p>
+                        <p class="card-text" th:text="${ loan.copyDto.bookDto.authorDto.firstName + ' ' +
             loan.copyDto.bookDto.authorDto.lastName}">Author</p>
-
+                        <a class="nav-link" th:href="@{/books/details/{id}(id=${loan.copyDto.bookDto.bookId})}">Summary</a>
                     </td>
-                    <td th:text="${loan.loanStartDate}"> Loan start date</td>
-                    <td>
-                        <p th:text="${loan.loanEndDate}">Loan end date</p>
+                    <td th:text="${#dates.format(loan.loanStartDate, 'dd-MMM-yyyy')}"> Loan start date</td>
 
+                    <!-- two conditionnals td-->
+                    <td th:if="${loan.returned == false && loan.loanEndDate.before(#dates.createNow())}"
+                            th:text="${#dates.format(loan.loanEndDate, 'dd-MMM-yyyy')}" class="text-danger">Loan end date
+                    </td>
+                    <td th:if="${
+                        loan.returned == true && loan.loanEndDate.before(#dates.createNow())
+                    ||
+                        (loan.loanEndDate.after(#dates.createNow()))
+                    }"
+                        th:text="${#dates.format(loan.loanEndDate, 'dd-MMM-yyyy')}">Loan end date
+                    </td>
+
+
+                    <td>
+                        <a class="nav-link" th:text="${loan.copyDto.libraryDto.name}" th:href="@{/libraries/{id}(id=${loan.copyDto.libraryDto.libraryId})}">Library Name</a>
+                    </td>
+                    <td>
                         <form action="#" th:action="@{'/extendLoan/{id}' (id=${loan.id})}" method="post"
-                              th:if="${loan.extended == false}">
+                              th:if="${loan.returned == false && loan.extended == false}">
                             <input type="submit" value="Extend loan"/>
                         </form>
+                        <p th:if="${loan.returned == true}" class="text-success">returned</p>
+                        <p th:if="${loan.returned == false}" class="text-warning">no returned</p>
                     </td>
-                    <td th:text="${loan.copyDto.libraryDto.name}"> Library</td>
-                </tr>
-                <tr th:each="loan: ${userInfos.loanDtos}">
-                    <td>
-                        <h5 class="card-title" th:text="${'Title: ' + loan.copyDto.bookDto.title}">Loaned book title</h5>
-                        <p class="card-text" th:text="${'Isbn: ' + loan.copyDto.bookDto.isbn}">Isbn</p>
-                        <p class="card-text" th:text="${'Author: ' + loan.copyDto.bookDto.authorDto.firstName + ' ' +
-            loan.copyDto.bookDto.authorDto.lastName}">Author</p>
-
-                    </td>
-                    <td th:text="${loan.loanStartDate}"> Loan start date</td>
-                    <td>
-                        <p th:text="${loan.loanEndDate}">Loan end date</p>
-
-                        <form action="#" th:action="@{'/extendLoan/{id}' (id=${loan.id})}" method="post"
-                              th:if="${loan.extended == false}">
-                            <input type="submit" value="Extend loan"/>
-                        </form>
-                    </td>
-                    <td th:text="${loan.copyDto.libraryDto.name}"> Library</td>
-                </tr>
-                <tr th:each="loan: ${userInfos.loanDtos}">
-                    <td>
-                        <h5 class="card-title" th:text="${'Title: ' + loan.copyDto.bookDto.title}">Loaned book title</h5>
-                        <p class="card-text" th:text="${'Isbn: ' + loan.copyDto.bookDto.isbn}">Isbn</p>
-                        <p class="card-text" th:text="${'Author: ' + loan.copyDto.bookDto.authorDto.firstName + ' ' +
-            loan.copyDto.bookDto.authorDto.lastName}">Author</p>
-
-                    </td>
-                    <td th:text="${loan.loanStartDate}"> Loan start date</td>
-                    <td>
-                        <p th:text="${loan.loanEndDate}">Loan end date</p>
-
-                        <form action="#" th:action="@{'/extendLoan/{id}' (id=${loan.id})}" method="post"
-                              th:if="${loan.extended == false}">
-                            <input type="submit" value="Extend loan"/>
-                        </form>
-                    </td>
-                    <td th:text="${loan.copyDto.libraryDto.name}"> Library</td>
                 </tr>
             </table>
         </div>
     </div>
 
-
-
-           <!-- <form  action="#" th:action="@{/updateUserAccount}" th:object="${userInfos}" method="post">
-
-                <div class="form-group">
-                    <div class="form-floating">
-                        <input id="firstName" class="form-control" th:field="*{firstName}" th:value="${userInfos.firstName}" type="text" name="firstName" placeholder="FirstName" required>
-                        <label for="firstName">Prénom</label>
-                    </div>
-
-                    <div class="form-floating">
-                        <input id="lastName" class="form-control" th:field="*{lastName}" th:value="${userInfos.lastName}" type="text" name="lastName" placeholder="lastName" required>
-                        <label for="lastName">Nom</label>
-                    </div>
-                </div>
--->
-                <!--<div class="form-group">
-                    <div class="form-floating">
-
-                        <input id="email" class="form-control" th:field="*{email}" th:value="${userInfos.email}" type="email" name="email" placeholder="Email"
-                           required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="adresse email valide">
-                        <label for="email">Email</label>
-                    </div>
-                </div>-->
-                <!--<div class="form-group">
-                    &lt;!&ndash;<label for="password">Password</label>&ndash;&gt;
-                    <input class="form-control" th:field="*{password}" type="password" name="password" id="password"
-                           placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-                           title="1 majuscule, 1 minuscule, 1 chiffre et 6 caractères minimum" required>
-                    &lt;!&ndash;<label for="confirm_password">Confirmation</label>&ndash;&gt;
-                    <input class="form-control" type="password" name="confirm_password" id="confirm_password"
-                           placeholder="confirm" required >
-                </div>-->
-
-              <!--  <div class="form-group">
-                    <div class="form-floating">
-                        <input id="number" class="form-control" th:field="*{addressDto.number}" th:value="${userInfos.addressDto.number}" type="text" name="number" placeholder="number" required>
-                        <label for="number">Numéro</label>
-                    </div>
-
-                    <div class="form-floating">
-                        <input id="street" class="form-control" th:field="*{addressDto.street}" th:value="${userInfos.addressDto.street}" type="text" name="street" placeholder="street" required>
-                        <label for="street">Rue</label>
-                    </div>
-
-                    <div class="form-floating">
-                        <input id="zipCode" class="form-control" th:field="*{addressDto.zipCode}" th:value="${userInfos.addressDto.zipCode}" type="text" name="zipCode" placeholder="zipCode" required>
-                        <label for="zipCode">zipCode</label>
-                    </div>
-
-                    <div class="form-floating">
-                        <input id="city" class="form-control" th:field="*{addressDto.city}" th:value="${userInfos.addressDto.city}" type="text" name="city" placeholder="city" required>
-                        <label for="city">City</label>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <button class="btn btn-primary btn-block" type="submit">Change</button>
-                </div>
-            </form>
--->
-
-    <!--<table class="table width90">
-        <tr>
-            <th>Books</th>
-            <th>Loan start date</th>
-            <th>Loan end date</th>
-            &lt;!&ndash;<th>Loan status</th>&ndash;&gt;
-            <th>Library</th>
-        </tr>
-        <tr th:each="loan: ${userInfos.loanDtos}">
-            <td>
-                    <h5 class="card-title" th:text="${'Title: ' + loan.copyDto.bookDto.title}">Loaned book title</h5>
-                    <p class="card-text" th:text="${'Isbn: ' + loan.copyDto.bookDto.isbn}">Isbn</p>
-                    <p class="card-text" th:text="${'Author: ' + loan.copyDto.bookDto.authorDto.firstName + ' ' +
-            loan.copyDto.bookDto.authorDto.lastName}">Author</p>
-
-            </td>
-            <td th:text="${loan.loanStartDate}"> Loan start date</td>
-            <td>
-                <p th:text="${loan.loanEndDate}">Loan end date</p>
-
-                <form action="#" th:action="@{'/extendLoan/{id}' (id=${loan.id})}" method="post"
-                      th:if="${loan.extended == false}">
-                    <input type="submit" value="Extend loan"/>
-                </form>
-            </td>
-            <td th:text="${loan.copyDto.libraryDto.name}"> Library</td>
-        </tr>
-    </table>-->
 </section>
 </body>
 </html>

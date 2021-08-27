@@ -45,7 +45,7 @@ public class JwtTokenUtils {
         }
 
         /**
-         * This method delete cookie stored
+         * return a field form the cookie with the name of his key
          *
          * @param httpServletRequest HttpServletResponse with cookie to use
          * @param name the name of the value to find
@@ -63,5 +63,10 @@ public class JwtTokenUtils {
             Integer userId = JWT.decode(token).getClaim("userId").asInt();
             return userId;
         }
+
+        public static String getFirstnameFromJWT(String token){ return JWT.decode(token).getClaim("firstname").asString();}
+
+        public static String getLastnameFromJWT(String token){return JWT.decode(token).getClaim("lastname").asString();}
+
     }
 

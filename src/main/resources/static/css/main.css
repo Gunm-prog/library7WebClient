@@ -136,9 +136,20 @@ input,select{
 }
 
 table{
-    margin:100px!important;
+    margin:30px!important;
 }
 
 th, td{
     vertical-align:center;
+}
+
+.tableTitle {
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
+
+.overflow-70h{
+    max-height: 70vh;
+    overflow: auto;
 }

@@ -1,12 +1,14 @@
 package com.emilie.library7WebClient.Proxy;
 
 
-import com.emilie.library7WebClient.Entities.*;
+import com.emilie.library7WebClient.Entities.Book;
+import com.emilie.library7WebClient.Entities.Library;
+import com.emilie.library7WebClient.Entities.User;
+import com.emilie.library7WebClient.Entities.UserAccountLogin;
 import com.emilie.library7WebClient.Security.JwtProperties;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -55,7 +57,7 @@ public interface FeignProxy {
     User getUserById(@PathVariable Long id);
 
     @PutMapping("/api/v1/users/update")
-    User updateUser(@RequestHeader(JwtProperties.HEADER) String accessToken,@RequestBody User user );
+    String updateUser(@RequestHeader(JwtProperties.HEADER) String accessToken, @RequestBody User user );
 
     @PostMapping("/authenticate")
     String login(@RequestBody UserAccountLogin accountDto);

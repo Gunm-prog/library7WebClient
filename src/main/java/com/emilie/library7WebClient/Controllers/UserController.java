@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CookieValue;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 public class UserController {
 
@@ -36,17 +39,29 @@ public class UserController {
 
         if (accessToken == null) return REDIRECT_LOGIN_VIEW;
         User user = feignProxy.getLoggedUser( accessToken );
-        System.out.println(user);
+
         model.addAttribute("userInfos", user );
+        model.addAttribute( "userFirstname", JwtTokenUtils.getFirstnameFromJWT(accessToken));
+        model.addAttribute("userLastname", JwtTokenUtils.getLastnameFromJWT(accessToken));
         model.addAttribute( "currentUserId", JwtTokenUtils.getUserIdFromJWT( accessToken ) );
+
         return USER_ACCOUNT_VIEW;
     }
 
     @PostMapping("/updateUserAccount")
-    public String updateUserAccount(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, @ModelAttribute(USER_ATT) User modifiedUser){
+    public String updateUserAccount(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, @ModelAttribute(USER_ATT) User modifiedUser, HttpServletResponse response){
         if (accessToken == null) return REDIRECT_LOGIN_VIEW;
+
         modifiedUser.setUserId(JwtTokenUtils.getUserIdFromJWT( accessToken ).longValue());
-        User user = feignProxy.updateUser(accessToken, modifiedUser );
+        String newToken = feignProxy.updateUser(accessToken, modifiedUser );
+
+        System.out.println("newToken : " + newToken);
+        System.out.println("oldToken : " + accessToken);
+
+        //String jwtToken = proxy.login(userAccountLogin);
+        Cookie cookie = JwtTokenUtils.generateCookie( newToken );
+        cookie.setMaxAge(3600);
+        response.addCookie( cookie );
         return REDIRECT_USER_ACCOUNT_VIEW;
     }
 }

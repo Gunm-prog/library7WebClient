@@ -35,6 +35,8 @@ public class LibraryController {
         if (accessToken != null){
             int userId =JwtTokenUtils.getUserIdFromJWT( accessToken );
             model.addAttribute( "currentUserId", userId );
+            model.addAttribute( "userFirstname", JwtTokenUtils.getFirstnameFromJWT(accessToken));
+            model.addAttribute("userLastname", JwtTokenUtils.getLastnameFromJWT(accessToken));
         }
         Library library = feignProxy.getLibraryById( id );
         model.addAttribute("library", library );
@@ -47,6 +49,8 @@ public class LibraryController {
         if (accessToken != null){
             int userId = JwtTokenUtils.getUserIdFromJWT( accessToken );
             model.addAttribute( "currentUserId", userId);
+            model.addAttribute( "userFirstname", JwtTokenUtils.getFirstnameFromJWT(accessToken));
+            model.addAttribute("userLastname", JwtTokenUtils.getLastnameFromJWT(accessToken));
         }
         List<Library> libraries = feignProxy.getLibraryList();
         model.addAttribute( "libraries", libraries );
