@@ -8,44 +8,72 @@
 
 <body>
 <div th:replace="fragments/header :: header"></div>
-<h2><!--Book Search Results--></h2>
+<h2></h2>
 
-<section class="width90 container align-middle bg-light">
-    <table class="table align-middle">
-        <tr>
-            <th>Isbn</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Availability</th>
-        </tr>
-        <tr th:if="${#lists.size(books) == 0}">
-            <td colspan="5">No result</td>
-        </tr>
-        <tr th:if="${#lists.size(books) != 0}" th:each="book: ${books}"> <!--pour chaque book de la list de books, on
-            affichera les diverses infos ci-dessous -->
-            <td>
-                <p th:text="${book.isbn}">Isbn</p>
+    <section class="width90 container align-middle bg-light">
+        <div class="overflow-70h w-100">
+            <table class="table align-middle overflow-70h width90">
+                <tr class="tableTitle">
+                    <th>Book</th>
+                    <th>Availability</th>
+                </tr>
+                <tr th:if="${#lists.size(books) == 0}">
+                    <td colspan="5">No result</td>
+                </tr>
+                <tr th:if="${#lists.size(books) != 0}" th:each="book: ${books}">
+                    <td>
+                        <img class="bookCover float-start w-50"  th:src="@{${'/image/covers/' + book.bookId +'.png'}}" alt="bookImage"/>
+                        <h5 class="card-title" th:text="${book.title}">Loaned book title</h5>
+                        <p class="card-text" th:text="${book.isbn}">Isbn</p>
+                        <p class="card-text" th:text="${ book.authorDto.firstName + ' ' +
+            book.authorDto.lastName}">Author</p>
+                        <a class="nav-link" th:href="@{/books/details/{id}(id=${book.bookId})}">Summary</a>
+                    </td>
+                    <td>
+                        <div class="height-30vh overflow-auto">
+                        <table class="table overflow-auto width90">
+                            <tr>
+                                <th>Library</th>
+                                <th>Available</th>
+                                <th>Quantity</th>
+                            </tr>
+                            <tr th:each="library: ${book.libraries}">
+                                <td>
+                                    <p class="strong"><a class="nav-link" th:text="${library.name}" th:href="@{/libraries/{id}(id=${library.libraryId})}">Library Name</a>
+                                    </p>
+                                </td>
+                                <td>
 
-            </td>
-            <td>
-                <p th:text="${book.title}">Title</p>
-                <a class="nav-link" th:href="@{/books/details/{id}(id=${book.bookId})}">Summary</a>
-            </td>
+                                    <p
+                                            th:if="${library.NbAvailableCopies == 0}"
+                                            th:text="${library.NbAvailableCopies}"
+                                            class="text-danger"
+                                    >
+                                        NbAvailableCopies
+                                    </p>
+                                    <p
+                                            th:if="${library.NbAvailableCopies > 0}"
+                                            th:text="${library.NbAvailableCopies}"
+                                            class="text-success"
+                                    >
+                                        NbAvailableCopies
+                                    </p>
+                                </td>
+                                <td>
+                                    <p th:text="${library.NbCopies}"> NbCopies</p>
+                                </td>
+                            </tr>
 
-            <td>
-                <p th:text="${book.authorDto.lastName}">Author Lastname</p>
-                <p th:text="${book.authorDto.firstName}">Author firstname</p>
-            </td>
-            <td>
-                <div class="text-center" th:each="library: ${book.libraries}">
-                    <p class="strong"><a class="nav-link" th:text="${library.name}" th:href="@{/libraries/{id}(id=${library.libraryId})}">Library Name</a></p>
-                    <p th:text="${library.NbAvailableCopies + ' / ' + library.NbCopies}"> available / max></p>
-                </div>
-            </td>
+                        </table>
+                        </div>
+                    </td>
 
-        </tr>
-    </table>
-</section>
+                </tr>
+
+            </table>
+        </div>
+
+    </section>
 
 </body>
 </html>

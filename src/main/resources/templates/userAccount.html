@@ -41,8 +41,7 @@
 
                         <div class="form-group">
                             <div class="form-floating">
-                                <input id="email" class="form-control" th:field="*{email}" type="email" name="email" placeholder="Email"
-                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="adresse email valide">
+                                <input id="email" class="form-control" th:field="*{email}" type="email" name="email" placeholder="Email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="adresse email valide">
                                 <label for="email">Email</label>
                             </div>
                          <!--   <div class="form-floating">
@@ -101,7 +100,7 @@
                     <th>Library</th>
                     <th>Status</th>
                 </tr>
-                <tr th:each="loan: ${userInfos.loanDtos}">
+                <tr th:if="${not #lists.isEmpty(userInfos.loanDtos)}" th:each="loan: ${userInfos.loanDtos}">
                     <td>
                         <img class="bookCover float-start w-50"  th:src="@{${'/image/covers/' + loan.copyDto.bookDto.bookId +'.png'}}" alt="bookImage"/>
                         <h5 class="card-title" th:text="${loan.copyDto.bookDto.title}">Loaned book title</h5>
@@ -136,6 +135,10 @@
                         <p th:if="${loan.returned == true}" class="text-success">returned</p>
                         <p th:if="${loan.returned == false}" class="text-warning">no returned</p>
                     </td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(userInfos.loanDtos)}">
+                    <td colspan="5" class="text-success"> No borrowing from your account </td>
                 </tr>
             </table>
         </div>
