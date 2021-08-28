@@ -19,16 +19,10 @@ import java.util.List;
 @RequestMapping("/books")
 public class BookController {
 
-    private static final String BOOK_LIST="bookList";
-    private static final String BOOK="book";
-    private static final String LIBRARY="libraries";
+
     private static final String BOOK_SEARCH="bookSearch";
     private static final String BOOK_SEARCH_RESULT="bookSearchResult";
-    private static final String LIBRARY_LIST="libraryList";
-    private static final String LIBRARY_DETAILS_VIEW="libraryDetails";
-    private static final String CATALOG_VIEW="catalog";
     private static final String BOOK_DETAILS_VIEW="bookDetails";
-    private static final String REDIRECT_LOGIN_VIEW="redirect:/login";
     private static final String COPY_ATT="copy";
 
     private final FeignProxy feignProxy;
@@ -45,7 +39,6 @@ public class BookController {
     public String BookSearch(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, Model model) {
         if (accessToken != null) {
             int userId=JwtTokenUtils.getUserIdFromJWT( accessToken );
-            //    String userLastname = JwtTokenUtils.get
             model.addAttribute( "currentUserId", userId );
             model.addAttribute( "userFirstname", JwtTokenUtils.getFirstnameFromJWT( accessToken ) );
             model.addAttribute( "userLastname", JwtTokenUtils.getLastnameFromJWT( accessToken ) );
@@ -58,7 +51,8 @@ public class BookController {
 
 
     @GetMapping("/searchResult")
-    public String BookSearchResult(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, @ModelAttribute(COPY_ATT) Copy copyInfo, Model model) {
+    public String BookSearchResult(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken,
+                                   @ModelAttribute(COPY_ATT) Copy copyInfo, Model model) {
         if (accessToken != null) {
             int userId=JwtTokenUtils.getUserIdFromJWT( accessToken );
             model.addAttribute( "currentUserId", userId );

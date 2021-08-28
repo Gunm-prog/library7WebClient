@@ -12,18 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoanController {
 
-    private static final String HOME_VIEW = "home";
-    private static final String LOGIN_VIEW = "login";
-    private static final String LOAN_LIST_ATT = "loans";
-    private static final String REDIRECT_LOGIN_VIEW = "redirect:/login";
-    private static final String REDIRECT_USER_ACCOUNT_VIEW = "redirect:/userAccount";
-    private static final String USER_ATT = "user";
+
+    private static final String REDIRECT_LOGIN_VIEW="redirect:/login";
+    private static final String REDIRECT_USER_ACCOUNT_VIEW="redirect:/userAccount";
 
     private final FeignProxy feignProxy;
 
     @Autowired
     public LoanController(FeignProxy feignProxy) {
-        this.feignProxy = feignProxy;
+        this.feignProxy=feignProxy;
     }
 
 

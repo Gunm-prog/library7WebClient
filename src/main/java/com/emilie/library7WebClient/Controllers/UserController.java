@@ -17,50 +17,46 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class UserController {
 
-    private static final String HOME_VIEW = "home";
-    private static final String LOGIN_VIEW = "login";
-    private static final String LOAN_LIST_ATT = "loans";
-    private static final String SIGN_UP_FORM_VIEW = "registerForm";
-    private static final String REDIRECT_LOGIN_VIEW = "redirect:/login";
-    private static final String USER_ACCOUNT_VIEW = "userAccount";
-    private static final String REDIRECT_USER_ACCOUNT_VIEW = "redirect:/userAccount";
-    private static final String USER_ATT = "user";
+    private static final String REDIRECT_LOGIN_VIEW="redirect:/login";
+    private static final String USER_ACCOUNT_VIEW="userAccount";
+    private static final String REDIRECT_USER_ACCOUNT_VIEW="redirect:/userAccount";
+    private static final String USER_ATT="user";
 
     private final FeignProxy feignProxy;
 
     @Autowired
-    public UserController(FeignProxy feignProxy ) {
+    public UserController(FeignProxy feignProxy) {
         this.feignProxy=feignProxy;
     }
 
 
     @GetMapping("/userAccount")
-    public String userAccount(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, Model model){
+    public String userAccount(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, Model model) {
 
         if (accessToken == null) return REDIRECT_LOGIN_VIEW;
-        User user = feignProxy.getLoggedUser( accessToken );
+        User user=feignProxy.getLoggedUser( accessToken );
 
-        model.addAttribute("userInfos", user );
-        model.addAttribute( "userFirstname", JwtTokenUtils.getFirstnameFromJWT(accessToken));
-        model.addAttribute("userLastname", JwtTokenUtils.getLastnameFromJWT(accessToken));
+        model.addAttribute( "userInfos", user );
+        model.addAttribute( "userFirstname", JwtTokenUtils.getFirstnameFromJWT( accessToken ) );
+        model.addAttribute( "userLastname", JwtTokenUtils.getLastnameFromJWT( accessToken ) );
         model.addAttribute( "currentUserId", JwtTokenUtils.getUserIdFromJWT( accessToken ) );
 
         return USER_ACCOUNT_VIEW;
     }
 
     @PostMapping("/updateUserAccount")
-    public String updateUserAccount(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, @ModelAttribute(USER_ATT) User modifiedUser, HttpServletResponse response){
+    public String updateUserAccount(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken,
+                                    @ModelAttribute(USER_ATT) User modifiedUser, HttpServletResponse response) {
         if (accessToken == null) return REDIRECT_LOGIN_VIEW;
 
-        modifiedUser.setUserId(JwtTokenUtils.getUserIdFromJWT( accessToken ).longValue());
-        String newToken = feignProxy.updateUser(accessToken, modifiedUser );
+        modifiedUser.setUserId( JwtTokenUtils.getUserIdFromJWT( accessToken ).longValue() );
+        String newToken=feignProxy.updateUser( accessToken, modifiedUser );
 
-        System.out.println("newToken : " + newToken);
-        System.out.println("oldToken : " + accessToken);
+        System.out.println( "newToken : " + newToken );
+        System.out.println( "oldToken : " + accessToken );
 
-        //String jwtToken = proxy.login(userAccountLogin);
-        Cookie cookie = JwtTokenUtils.generateCookie( newToken );
-        cookie.setMaxAge(3600);
+        Cookie cookie=JwtTokenUtils.generateCookie( newToken );
+        cookie.setMaxAge( 3600 );
         response.addCookie( cookie );
         return REDIRECT_USER_ACCOUNT_VIEW;
     }

@@ -1,8 +1,8 @@
 !DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
- <link rel="stylesheet" href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
 
 
 </head>
@@ -20,27 +20,21 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
 
             <ul class="navbar-nav mr-auto" id="leftMenu">
-                <!--<li class="nav-item">
-                  <a class="nav-link" th:href="@{/}">Home</a>
-                </li>-->
                 <li th:if="${currentUserId == null}" class="nav-item">
                     <a class="nav-link" th:href="@{/registration/customer}">Register</a>
                 </li>
                 <li th:if="${currentUserId == null}" class="nav-item">
                     <a class="nav-link" th:href="@{/login}">Login</a>
                 </li>
-                <!--<li th:if="${currentUserId == null}" class="nav-item">
-                    <a class="nav-link" th:href="@{/books/searchCopies}">Search</a>
-                </li>-->
-                <li class="nav-item dropdown" th:if="${currentUserId != null}" >
-
-                    <a th:text="${userLastname + ' ' + userFirstname}" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuMyAccountLink" data-toggle="dropdown"
+                <li class="nav-item dropdown" th:if="${currentUserId != null}">
+                    <a th:text="${userLastname + ' ' + userFirstname}" class="nav-link dropdown-toggle" href="#"
+                       id="navbarDropdownMenuMyAccountLink" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
                         userLastname userFirstname
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuMyAccountLink">
                         <a class="dropdown-item" th:href="@{/userAccount}">My Account</a>
-                    </div><!--<a class="nav-link" th:href="@{/userAccount}">My Account</a>-->
+                    </div>
                 </li>
                 <li th:if="${currentUserId != null}" class="nav-item">
                     <a class="nav-link" th:href="@{/logout}">Logout</a>
@@ -56,13 +50,13 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLibraryLink" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLibraryLink"
+                       data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">Libraries</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLibraryLink">
                         <a class="dropdown-item" th:href="@{/libraries/list}">List</a>
                     </div>
                 </li>
-
             </ul>
         </div>
     </nav>

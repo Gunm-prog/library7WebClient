@@ -20,5 +20,4 @@ public class User {
     private Set<Loan> loanDtos;
 
 
-
 }

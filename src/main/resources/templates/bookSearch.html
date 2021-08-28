@@ -7,32 +7,31 @@
 
 <body>
 <div th:replace="fragments/header :: header"></div>
-<h2><!--Book Search--></h2>
+<h2></h2>
 <section class="search container align-middle bg-light">
     <form action="#" th:action="@{/books/searchResult}" th:object="${copy}" method="get">
 
-        <!--<h3>Library</h3>-->
         <div class="form-group">
-            <select name="libraryId" th:field="*{libraryDto.libraryId}" class="form-select" aria-label="Default select example">
+            <select name="libraryId" th:field="*{libraryDto.libraryId}" class="form-select"
+                    aria-label="Default select example">
                 <option th:value=null>All libraries</option>
-                <option th:each="library: ${libraries}" th:value="${library.libraryId}" th:text="${library.name}">Library Name</option>
+                <option th:each="library: ${libraries}" th:value="${library.libraryId}" th:text="${library.name}">
+                    Library Name
+                </option>
             </select>
-
         </div>
-        <!--<h3>Book Title - Isbn</h3>-->
+
         <div class="form-group">
             <input id="title" type="text" class="form-control" th:field="*{bookDto.title}" name="bookTitle"
                    placeholder="Title">
-            <!--<label for="isbn">Isbn</label>-->
+
             <input id="Isbn" type="text" class="form-control" th:field="*{bookDto.isbn}" name="isbn" placeholder="Isbn">
         </div>
 
-       <!-- <h3>Book's Author</h3>-->
         <div class="form-group">
-            <!--<label for="authorLastname"><Author Lastname</label>-->
             <input id="authorLastname" type="text" class="form-control" th:field="*{bookDto.authorDto.lastName}"
                    name="AuthorLastname" placeholder="Author Lastname">
-            <!--<label for="authorFirstname"><Author Firstname</label>-->
+
             <input id="authorFirstname" type="text" class="form-control" th:field="*{bookDto.authorDto.firstName}"
                    name="AuthorFirstName" placeholder="Author Firstname">
         </div>
@@ -42,8 +41,6 @@
             <input class="btn btn-primary btn-block" type="submit" value="Search"/>
         </div>
     </form>
-
-
 </section>
 </body>
 </html>

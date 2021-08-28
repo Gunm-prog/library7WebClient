@@ -6,7 +6,7 @@
 
 <body>
 <div th:replace="fragments/header :: header"></div>
-<h2><!--Login--></h2>
+<h2></h2>
 <section class="login container align-middle bg-light">
     <div th:if="${param.error}">
         Invalid username and password.
@@ -17,7 +17,8 @@
     <form th:action="@{/login}" method="post">
         <div class="form-group">
             <input type="text" id="form-username" class="form-control" name="username" placeholder="username" required/>
-            <input type="password" id="form-password" class="form-control" name="password" placeholder="password" required/>
+            <input type="password" id="form-password" class="form-control" name="password" placeholder="password"
+                   required/>
             <input class="btn btn-success" type="submit" value="Sign In"/>
             <a class="nav-link" th:href="@{/registration/customer}">Register</a>
             <span class="alert alert-danger" th:if="${error}" th:text="${error}">error</span>

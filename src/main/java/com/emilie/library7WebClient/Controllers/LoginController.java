@@ -8,7 +8,6 @@ import com.emilie.library7WebClient.Security.JwtTokenUtils;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -26,47 +25,40 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class LoginController {
 
-    private static final String LIBRARY_ATT = "libraries";
-    private static final String USER_ATT = "user";
-
-    private static final String CUSTOMER_ATT = "customer";
-    private static final String USERNAME_FIELD = "username";
-    private static final String BAD_CREDENTIALS_MSG = "Mauvais login/mot de passe";
-
-    private static final String LOGIN_VIEW = "login";
-    private static final String REDIRECT_LOGIN_VIEW = "redirect:/login";
-    private static final String REDIRECT_USER_HOME_VIEW = "redirect:/userAccount";
-    private static final String ERROR_EMAIL_CONFLICT = "Email already exist";
-    private static final String REGISTER_CUTOMER = "registerCustomerForm";
+    private static final String USER_ATT="user";
+    private static final String LOGIN_VIEW="login";
+    private static final String REDIRECT_LOGIN_VIEW="redirect:/login";
+    private static final String REDIRECT_USER_HOME_VIEW="redirect:/userAccount";
+    private static final String ERROR_EMAIL_CONFLICT="Email already exist";
+    private static final String REGISTER_CUTOMER="registerCustomerForm";
 
     private final FeignProxy proxy;
 
     @Autowired
     public LoginController(FeignProxy proxy) {
-        this.proxy = proxy;
+        this.proxy=proxy;
     }
 
     @GetMapping("/registration/customer")
-    public String getCustomerRegisterForm(@CookieValue(value= JwtProperties.HEADER, required=false) String accessToken, Model model) {
+    public String getCustomerRegisterForm(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, Model model) {
         if (accessToken != null) return REDIRECT_USER_HOME_VIEW;
-        model.addAttribute(USER_ATT, new User());
-        return "registerCustomerForm";
+        model.addAttribute( USER_ATT, new User() );
+        return REGISTER_CUTOMER;
     }
 
     @PostMapping("/registration/customer")
-    public String newCustomerAccount(@ModelAttribute(USER_ATT) User newUser, Model model){
-        try{
-            newUser.setUsername(newUser.getEmail());
-            ResponseEntity<?> response = proxy.newCustomerAccount(newUser);
-            HttpStatus statusCode = response.getStatusCode();
-        }catch(FeignException e){
-            if(e.status() == HttpStatus.CONFLICT.value()){
-                model.addAttribute("error", ERROR_EMAIL_CONFLICT);
-            }else{
-                model.addAttribute("error", "An error occured");
+    public String newCustomerAccount(@ModelAttribute(USER_ATT) User newUser, Model model) {
+        try {
+            newUser.setUsername( newUser.getEmail() );
+            proxy.newCustomerAccount( newUser );
+        } catch (FeignException e) {
+            if (e.status() == HttpStatus.CONFLICT.value()) {
+                model.addAttribute( "error", ERROR_EMAIL_CONFLICT );
+            } else {
+                model.addAttribute( "error", "An error occured" );
             }
 
-            model.addAttribute(USER_ATT,newUser);
+            model.addAttribute( USER_ATT, newUser );
             return REGISTER_CUTOMER;
         }
 
@@ -76,9 +68,9 @@ public class LoginController {
 
 
     @GetMapping(path="/login")
-    public String loginForm(@CookieValue(value= JwtProperties.HEADER, required=false) String accessToken, Model model) {
+    public String loginForm(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, Model model) {
         if (accessToken != null) return REDIRECT_USER_HOME_VIEW;
-        model.addAttribute(USER_ATT, new User());
+        model.addAttribute( USER_ATT, new User() );
 
         return LOGIN_VIEW;
 
@@ -89,23 +81,23 @@ public class LoginController {
                             HttpServletResponse response) {
 
         try {
-            String jwtToken = proxy.login(userAccountLogin);
-            Cookie cookie = JwtTokenUtils.generateCookie( jwtToken );
-            cookie.setMaxAge(3600);
+            String jwtToken=proxy.login( userAccountLogin );
+            Cookie cookie=JwtTokenUtils.generateCookie( jwtToken );
+            cookie.setMaxAge( 3600 );
             response.addCookie( cookie );
 
             return REDIRECT_USER_HOME_VIEW;
-        } catch (Exception e){
-            model.addAttribute( "error", "Mauvais login/mot de pass" );
-            model.addAttribute("user", userAccountLogin);
+        } catch (Exception e) {
+            model.addAttribute( "error", "Bad credentials" );
+            model.addAttribute( "user", userAccountLogin );
             return LOGIN_VIEW;
         }
     }
 
     @GetMapping("/logout")
-    public String logoutUser(@CookieValue(value= JwtProperties.HEADER, required=false) String accessToken, HttpServletResponse response) {
+    public String logoutUser(@CookieValue(value=JwtProperties.HEADER, required=false) String accessToken, HttpServletResponse response) {
         if (accessToken == null) return REDIRECT_LOGIN_VIEW;
-        JwtTokenUtils.clear(response);
+        JwtTokenUtils.clear( response );
 
         return REDIRECT_LOGIN_VIEW;
     }

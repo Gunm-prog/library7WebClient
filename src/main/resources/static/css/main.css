@@ -57,18 +57,12 @@ section{
     box-shadow:0px 0px 0px;
 }
 
-/*form{
-    padding:auto;
-}*/
 
 .form-group{
     margin:25px;
     align-items:space-around;
 }
 
-/*.form-group input{
-    margin:2px;
-}*/
 
 input,select{
     margin:8px;
@@ -108,21 +102,11 @@ input,select{
     width:80%;
 }
 
-/*.search{
-    width:60%;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:space-around;
-}*/
 
 .search form{
     width:80%!important;
 }
 
-/*.searchResult{
-    width:90%!important;
-
-}*/
 
 .width90{
     width:90%!important;
